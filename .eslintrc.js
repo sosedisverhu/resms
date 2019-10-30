@@ -1,26 +1,15 @@
 module.exports = {
     'parser': 'babel-eslint',
-    'extends': 'standard',
+    'extends': 'airbnb',
     'plugins': [
         'react'
     ],
-    'rules': {
-        'import/extensions': ['error', 'never', { 'css': 'always', 'json': 'always' }],
-        'no-console': 'error',
-        'no-unused-vars': 'error',
-        'no-restricted-imports': ['warn', 'prop-types'],
-        'import/prefer-default-export': 'warn',
-        'react/jsx-uses-vars': 1,
-        'react/jsx-uses-react': 1,
-        'react/react-in-jsx-scope': 1,
-        'object-curly-spacing': ['error', 'always'],
-        'react/jsx-curly-brace-presence': [1, 'never'],
-        'max-len': [2, 160],
-        'semi': ["error", "always"],
-        "indent": ["error", 4],
-        "no-mixed-operators": 0,
-        "react/no-unused-prop-types": 1,
-        "react/prop-types": 2
+    "rules": {
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "Link" ],
+            "specialLink": [ "hrefLeft", "hrefRight" ],
+            "aspects": [ "invalidHref", "preferButton" ]
+        }]
     },
     'env': {
         'browser': true

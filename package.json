@@ -8,7 +8,8 @@
     "build": "next build ./web",
     "start": "next start ./web",
     "lint": "eslint web --ext .js,.jsx",
-    "lint-fix": "eslint web --ext .js,.jsx --fix"
+    "lint-fix": "eslint web --ext .js,.jsx --fix",
+    "prettier": "prettier --write web/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -29,11 +30,11 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^6.6.0",
-    "eslint-config-standard": "^14.1.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-standard": "^4.0.1"
+    "prettier": "1.18.2",
+    "pretty-quick": "^2.0.0"
   }
 }
