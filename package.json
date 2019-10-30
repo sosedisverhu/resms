@@ -1,0 +1,39 @@
+{
+  "name": "resms",
+  "version": "1.0.0",
+  "description": "ReSMS is a next generation of messages communication system",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next ./web",
+    "build": "next build ./web",
+    "start": "next start ./web",
+    "lint": "eslint web --ext .js,.jsx",
+    "lint-fix": "eslint web --ext .js,.jsx --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://vbilous-upwork:AWiquxCa05ES@github.com/maximgladkov/resms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maximgladkov/resms/issues"
+  },
+  "homepage": "https://github.com/maximgladkov/resms#readme",
+  "dependencies": {
+    "next": "^9.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
