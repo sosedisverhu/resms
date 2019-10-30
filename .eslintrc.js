@@ -2,7 +2,10 @@ module.exports = {
     'parser': 'babel-eslint',
     'extends': 'airbnb',
     'plugins': [
-        'react'
+        'react',
+        'react-perf',
+        'prettier',
+        'lodash'
     ],
     "rules": {
         "jsx-a11y/anchor-is-valid": [ "error", {
