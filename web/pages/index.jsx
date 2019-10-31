@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import random from 'lodash/random';
 
-import firestore from '../firebase';
+import firestore from '../helpers/firebase';
 
 const PAGES = [
   {
@@ -49,20 +49,18 @@ const Index = ({ pages: initialPages }) => {
   };
 
 
-  useEffect(() => {
-    return firestore.collection('pages')
-      .onSnapshot((querySnapshot) => {
-        const newPages = [];
+  useEffect(() => firestore.collection('pages')
+    .onSnapshot((querySnapshot) => {
+      const newPages = [];
 
-        querySnapshot.forEach((doc) => {
-          newPages.push({
-            ...doc.data(),
-            id: doc.id,
-          });
+      querySnapshot.forEach((doc) => {
+        newPages.push({
+          ...doc.data(),
+          id: doc.id,
         });
-        setPages(newPages);
       });
-  }, []);
+      setPages(newPages);
+    }), []);
 
   return (
     <div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Link from 'next/link';
 
-import firestore from '../../firebase';
+import firestore from '../../helpers/firebase';
 
 const getComponentByType = ({ type, settings }) => {
   switch (type) {
