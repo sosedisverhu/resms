@@ -93,6 +93,9 @@ const Step = ({ children, submitDisabled, backUrl }) => (
         <Box
           direction="row"
           align="center"
+          margin={{
+            top: 'xlarge',
+          }}
         >
           <Box
             width="50%"

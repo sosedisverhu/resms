@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import firestore from '../../helpers/firebase';
 
-import { useRouter } from 'next/router';
 
 const NewCampaign = () => {
   const router = useRouter();
