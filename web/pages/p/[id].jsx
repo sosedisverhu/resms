@@ -1,39 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Link from 'next/link';
 
-const PAGES_MAP = {
-  first: {
-    id: 'first',
-    content: [
-      { type: 'text', settings: { text: 'About page text' } },
-      {
-        type: 'image',
-        props: { src: 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', alt: 'bridge' },
-      },
-      { type: 'list', settings: { options: [{ label: '1. One', id: '1' }, { label: '2. Two', id: '1' }, { label: '3. Three', id: '1' }] } },
-    ],
-  },
-  second: {
-    id: 'second',
-    content: [
-      { type: 'image', settings: { src: 'http://donapr.com/wp-content/uploads/2016/03/RRUe0Mo.png', alt: 'bridge' } },
-      { type: 'text', settings: { text: 'About page text' } },
-      { type: 'list', settings: { options: [{ label: '1. One', id: '1' }, { label: '2. Two', id: '1' }, { label: '3. Three', id: '1' }] } },
-    ],
-  },
-  third: {
-    id: 'third',
-    content: [
-      { type: 'text', settings: { text: 'About page text' } },
-      { type: 'list', settings: { options: [{ label: '1. One', id: '1' }, { label: '2. Two', id: '1' }, { label: '3. Three', id: '1' }] } },
-      {
-        type: 'image',
-        settings: { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXFvsYRSdrUQ3KI_zPFCQWGoxXmS2BFEr6Pw8dEbC3xNmC4xk&s', alt: 'bridge' },
-      },
-    ],
-  },
-};
+import firestore from '../../firebase';
 
 const getComponentByType = ({ type, settings }) => {
   switch (type) {
@@ -71,6 +41,9 @@ const MessagePage = ({ content }) => {
   if (!content) {
     return (
       <div>
+        <Link href="/">
+          <a>Go to all</a>
+        </Link>
         <div>404</div>
         <div>Page not found</div>
       </div>
@@ -102,11 +75,19 @@ MessagePage.defaultProps = {
   content: null,
 };
 
-MessagePage.getInitialProps = (context) => {
+MessagePage.getInitialProps = async (context) => {
   const { id } = context.query;
-  const page = PAGES_MAP[id] || {};
+  let content;
 
-  return { content: page.content };
+  await firestore.collection('pages').doc(id).get().then((doc) => {
+    const data = doc.data();
+
+    if (data) {
+      content = data.content;
+    }
+  });
+
+  return { content };
 };
 
 export default MessagePage;
