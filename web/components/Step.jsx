@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {
   Stack, Box, Heading, Button, Text,
 } from 'grommet';
-import { Close } from 'grommet-icons';
+import { Close, Edit } from 'grommet-icons';
+
+import noop from 'lodash/noop';
 
 const Step = ({
   children, submitDisabled, backUrl, onSubmit, header,
@@ -21,7 +23,11 @@ const Step = ({
       <Box>{children}</Box>
       <Box direction="row" justify="between">
         {backUrl.showed ? (
-          <Button href={backUrl.href}>{backUrl.title}</Button>
+          <Button href={backUrl.href}>
+            <Edit size="small" />
+            &nbsp;
+            <Text size="small">{backUrl.title}</Text>
+          </Button>
         ) : (
           <span />
         )}
@@ -40,18 +46,26 @@ const Step = ({
 
 Step.propTypes = {
   children: PropTypes.node.isRequired,
-  submitDisabled: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  backUrl: PropTypes.shape({
-    href: PropTypes.string,
-    title: PropTypes.string,
-    showed: PropTypes.bool.isRequired,
-  }).isRequired,
   header: PropTypes.shape({
     step: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
+  submitDisabled: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  backUrl: PropTypes.shape({
+    href: PropTypes.string,
+    title: PropTypes.string,
+    showed: PropTypes.bool.isRequired,
+  }),
+};
+
+Step.defaultProps = {
+  onSubmit: noop,
+  submitDisabled: false,
+  backUrl: {
+    showed: false,
+  },
 };
 
 export default Step;

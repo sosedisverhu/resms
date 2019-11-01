@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { useRouter } from 'next/router';
 
-import findIndex from 'lodash/findIndex';
 import reduce from 'lodash/reduce';
 import find from 'lodash/find';
 
@@ -15,7 +14,7 @@ import noop from 'lodash/noop';
 import Step from '../../../components/Step';
 import TextAreaAutoresize from '../../../components/TextAreaAutoresize';
 
-import { firestore, storage } from '../../../helpers/firebase';
+import { firestore } from '../../../helpers/firebase';
 
 const initialFields = {
   message: { value: '', active: true },
@@ -92,12 +91,14 @@ const CampaignMessageStep = () => {
             return setCampaignStatus(true);
           }
 
+          const isNew = !data.message;
+
           setFields({
-            message: { value: data.message, active: false },
-            image: { value: data.image, active: false },
-            title: { value: data.title, active: false },
+            message: { value: data.message || '', active: isNew },
+            image: { value: data.image || '', active: false },
+            title: { value: data.title || '', active: false },
           });
-          setSubmitDisabled(false);
+          return setSubmitDisabled(isNew);
         });
     }
     return noop;
@@ -105,7 +106,6 @@ const CampaignMessageStep = () => {
 
   return (
     <Step
-      backUrl={{ showed: false }}
       submitDisabled={submitDisabled}
       onSubmit={onSubmitHandler}
       header={{
@@ -120,7 +120,7 @@ const CampaignMessageStep = () => {
             size="small"
             plain
             resize={false}
-            placeholder="Type yout message here..."
+            placeholder="Type your message here..."
             onChange={onChangeHandler('message')}
             onBlur={onFieldDoneHandler}
             value={fields.message.value}

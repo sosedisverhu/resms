@@ -10,6 +10,7 @@ const NewCampaign = () => {
 
     firestore.doc(`campaigns/${id}`).set({
       createdAt: +new Date(),
+      content: [],
     });
 
     router.push(`/campaigns/${id}/message`);
