@@ -1,6 +1,6 @@
-import Head from "next/head";
-import { grommet, Grommet } from "grommet";
-import { deepMerge } from "grommet/utils";
+import Head from 'next/head';
+import { grommet, Grommet } from 'grommet';
+import { deepMerge } from 'grommet/utils';
 
 const theme = deepMerge(grommet, {});
 

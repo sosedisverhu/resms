@@ -25,7 +25,7 @@ const TextAreaAutoresize = ({ onChange, ...rest }) => {
       setRows(txt.rows);
     }
 
-    onChange(event.target.value);
+    onChange(event);
   }, []);
 
   return (

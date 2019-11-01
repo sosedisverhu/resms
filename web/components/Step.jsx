@@ -1,20 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Stack, Box, Heading, Button, Text } from "grommet";
-import { Close } from "grommet-icons";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Stack, Box, Heading, Button, Text,
+} from 'grommet';
+import { Close } from 'grommet-icons';
 
-const Step = ({ children, submitDisabled, backUrl }) => (
+const Step = ({
+  children, submitDisabled, backUrl, onSubmit, header,
+}) => (
   <Stack anchor="top-right">
     <Box background="light-2" height="100vh" pad="large" justify="between">
       <Box>
         <Text color="dark-4" size="small">
-          STEP 1
+          STEP&nbsp;
+          {header.step}
         </Text>
-        <Heading>Compose message</Heading>
-        <Text color="dark-4">
-          The message you specify will be send to recipent's phone number as
-          SMS.
-        </Text>
+        <Heading>{header.title}</Heading>
+        <Text color="dark-4">{header.description}</Text>
       </Box>
       <Box>{children}</Box>
       <Box direction="row" justify="between">
@@ -28,7 +30,7 @@ const Step = ({ children, submitDisabled, backUrl }) => (
           color="brand"
           primary
           disabled={submitDisabled}
-          onClick={() => {}}
+          onClick={onSubmit}
         />
       </Box>
     </Box>
@@ -39,11 +41,17 @@ const Step = ({ children, submitDisabled, backUrl }) => (
 Step.propTypes = {
   children: PropTypes.node.isRequired,
   submitDisabled: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   backUrl: PropTypes.shape({
     href: PropTypes.string,
     title: PropTypes.string,
-    showed: PropTypes.bool.isRequired
-  }).isRequired
+    showed: PropTypes.bool.isRequired,
+  }).isRequired,
+  header: PropTypes.shape({
+    step: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Step;
