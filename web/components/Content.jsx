@@ -1,45 +1,39 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-
-import noop from 'lodash/noop';
-import findIndex from 'lodash/findIndex';
-import uniqid from 'uniqid';
 
 import {
   Box, Button,
 } from 'grommet';
 import { Add } from 'grommet-icons';
+import getCampaign from '../hooks/getCampaign';
 import blocksMap from './blocks/blocksMap';
+import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const DEFAULT_BLOCK = {
   type: 'text',
   id: {},
   value: '',
 };
-
-const CampaignMessageStep = ({ content, onChange }) => {
+let content = []
+const Content = () => {
+  const { campaign, campaignId } = getCampaign();
   const onBlockAddHandler = useCallback(() => {
-    const newContent = [...content];
-
-    newContent.push({
-      ...DEFAULT_BLOCK,
-      id: uniqid(),
+    updateCampaign(campaignId, {
+      content: [
+        ...campaign.content,
+        DEFAULT_BLOCK,
+      ],
     });
+  }, [campaign]);
 
-    onChange(newContent);
-  }, [content]);
-  const onBlockChangeHandler = useCallback((blockId) => (value) => {
-    const newContent = [...content];
-    const changedBlockIndex = findIndex(newContent, (({ id }) => id === blockId));
+  if (!campaign) {
+    return null;
+  }
 
-    newContent[changedBlockIndex].value = value;
-
-    onChange(newContent);
-  }, [content.map((block) => block.id)]);
+  content = campaign.content;
 
   return (
     <Box gap="medium">
-      {content.map((block) => {
+      {campaign.content.map((block, i) => {
         const Component = blocksMap[block.type];
 
         if (!Component) {
@@ -48,17 +42,16 @@ const CampaignMessageStep = ({ content, onChange }) => {
 
         return (
           <Component
-            onChange={onBlockChangeHandler(block.id)}
-            value={block.value}
-            key={block.id}
+            key={i}
+            blockIndex={i}
           />
         );
       })}
-      <Box round="large" width="180px">
+      <Box align="start">
         <Button
           icon={<Add />}
           label="Add block"
-          primary={!!content.length}
+          primary={!!campaign.content.length}
           onClick={onBlockAddHandler}
         />
       </Box>
@@ -66,19 +59,4 @@ const CampaignMessageStep = ({ content, onChange }) => {
   );
 };
 
-CampaignMessageStep.propTypes = {
-  content: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    }),
-  ),
-  onChange: PropTypes.func,
-};
-
-CampaignMessageStep.defaultProps = {
-  content: [],
-  onChange: noop,
-};
-
-export default CampaignMessageStep;
+export default Content;
