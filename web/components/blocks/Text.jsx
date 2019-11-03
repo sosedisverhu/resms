@@ -1,15 +1,31 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-import noop from 'lodash/noop';
 
 import {
   Box,
 } from 'grommet';
-import TextAreaAutoresize from '../TextAreaAutoresize';
+import getCampaign from '../../hooks/getCampaign';
 
-const CampaignMessageStep = ({ onChange, value }) => {
-  const onChangeHandler = useCallback((event) => onChange(event.target.value), []);
+import TextAreaAutoresize from '../TextAreaAutoresize';
+import updateCampaign from '../../helpers/firebase/updateCampaign';
+
+const Text = ({ blockIndex }) => {
+  const { campaign, campaignId } = getCampaign();
+  const block = campaign ? campaign.content[blockIndex] : null;
+  const [value, setValue] = useState('');
+
+  const onChangeHandler = useCallback((event) => setValue(event.target.value), []);
+  const onBlurHandler = useCallback((event) => {
+    campaign.content[blockIndex].value = event.target.value;
+
+    return updateCampaign(campaignId, { content: campaign.content });
+  }, [campaign, blockIndex]);
+
+  useEffect(() => {
+    if (block) {
+      setValue(block.value);
+    }
+  }, [block]);
 
   return (
     <Box round="large" background={!value ? 'brand' : 'white'}>
@@ -19,20 +35,15 @@ const CampaignMessageStep = ({ onChange, value }) => {
         resize={false}
         placeholder="Type your message here..."
         onChange={onChangeHandler}
+        onBlur={onBlurHandler}
         value={value}
       />
     </Box>
   );
 };
 
-CampaignMessageStep.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.string,
+Text.propTypes = {
+  blockIndex: PropTypes.number.isRequired,
 };
 
-CampaignMessageStep.defaultProps = {
-  onChange: noop,
-  value: '',
-};
-
-export default CampaignMessageStep;
+export default Text;

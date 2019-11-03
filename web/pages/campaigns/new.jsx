@@ -8,13 +8,17 @@ const NewCampaign = () => {
   useEffect(() => {
     const { id } = firestore.collection('campaigns').doc();
 
-    firestore.doc(`campaigns/${id}`).set({
-      createdAt: +new Date(),
-      content: [],
-    });
-
-    router.push(`/campaigns/${id}/message`);
+    firestore
+      .doc(`campaigns/${id}`)
+      .set({
+        createdAt: +new Date(),
+        content: [],
+      })
+      .then(() => {
+        router.push(`/campaigns/${id}/message`);
+      });
   }, []);
+
 
   return <div />;
 };

@@ -5,29 +5,29 @@ import {
 } from 'grommet';
 import { Close, Edit } from 'grommet-icons';
 
-import noop from 'lodash/noop';
-
 const Step = ({
-  children, submitDisabled, backUrl, onSubmit, header,
+  children, submitDisabled, submitHref, backUrl, step, title, description,
 }) => (
   <Stack anchor="top-right">
     <Box background="light-2" height="100vh" pad="large" justify="between">
       <Box>
         <Text color="dark-4" size="small">
           STEP&nbsp;
-          {header.step}
+          {step}
         </Text>
-        <Heading>{header.title}</Heading>
-        <Text color="dark-4">{header.description}</Text>
+        <Heading>{title}</Heading>
+        <Text color="dark-4">{description}</Text>
       </Box>
       <Box>{children}</Box>
       <Box direction="row" justify="between">
         {backUrl.showed ? (
-          <Button href={backUrl.href}>
-            <Edit size="small" />
-            &nbsp;
-            <Text size="small">{backUrl.title}</Text>
-          </Button>
+          <Button
+            plain
+            href={backUrl.href}
+            icon={<Edit size="small" />}
+            label={backUrl.title}
+            size="xsmall"
+          />
         ) : (
           <span />
         )}
@@ -36,7 +36,7 @@ const Step = ({
           color="brand"
           primary
           disabled={submitDisabled}
-          onClick={onSubmit}
+          href={submitHref}
         />
       </Box>
     </Box>
@@ -46,13 +46,11 @@ const Step = ({
 
 Step.propTypes = {
   children: PropTypes.node.isRequired,
-  header: PropTypes.shape({
-    step: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
+  step: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   submitDisabled: PropTypes.bool,
-  onSubmit: PropTypes.func,
+  submitHref: PropTypes.string.isRequired,
   backUrl: PropTypes.shape({
     href: PropTypes.string,
     title: PropTypes.string,
@@ -61,7 +59,6 @@ Step.propTypes = {
 };
 
 Step.defaultProps = {
-  onSubmit: noop,
   submitDisabled: false,
   backUrl: {
     showed: false,
