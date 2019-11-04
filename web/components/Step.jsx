@@ -6,7 +6,7 @@ import {
 import { Close, Edit } from 'grommet-icons';
 
 const Step = ({
-  children, submitDisabled, submitHref, backUrl, step, title, description,
+  children, submitDisabled, submitTitle, submitHref, backUrl, step, title, description,
 }) => (
   <Stack anchor="top-right">
     <Box background="light-2" height="100vh" pad="large" justify="between">
@@ -42,7 +42,7 @@ const Step = ({
           <span />
         )}
         <Button
-          label="Continue"
+          label={submitTitle}
           color="brand"
           primary
           disabled={submitDisabled}
@@ -60,6 +60,7 @@ Step.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   submitDisabled: PropTypes.bool,
+  submitTitle: PropTypes.string,
   submitHref: PropTypes.string.isRequired,
   backUrl: PropTypes.shape({
     href: PropTypes.string,
@@ -70,6 +71,7 @@ Step.propTypes = {
 
 Step.defaultProps = {
   submitDisabled: false,
+  submitTitle: 'Continue',
   backUrl: {
     showed: false,
   },
