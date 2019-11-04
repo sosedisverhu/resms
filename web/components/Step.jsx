@@ -29,7 +29,7 @@ const Step = ({
         </Text>
       </Box>
       <Box>{children}</Box>
-      <Box direction="row" justify="between">
+      <Box direction="row" justify="between" align="center">
         {backUrl.showed ? (
           <Button
             plain

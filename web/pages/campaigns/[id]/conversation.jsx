@@ -25,7 +25,7 @@ const CampaignConversationStep = () => {
     <Step
       backUrl={{ showed: true, title: 'Edit message', href: `/campaigns/${campaignId}/message` }}
       submitDisabled={!campaign.content.length || campaign.content.some((block) => !block.value)}
-      submitHref={`/campaigns/${campaignId}/conversation`}
+      submitHref={`/campaigns/${campaignId}/customization`}
       step={2}
       title="Build conversation"
       description="The conversation you're about to build is happening after recipient clicks a link in the original SMS."

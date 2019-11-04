@@ -13,6 +13,7 @@ const NewCampaign = () => {
       .set({
         createdAt: +new Date(),
         content: [],
+        settings: {},
       })
       .then(() => {
         router.push(`/campaigns/${id}/message`);

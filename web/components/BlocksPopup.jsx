@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+
+import noop from 'lodash/noop';
 
 import {
   Grid, Box, Heading, Text,
@@ -21,6 +24,10 @@ import {
   Instagram,
 } from 'grommet-icons';
 
+import getCampaign from '../hooks/getCampaign';
+
+import updateCampaign from '../helpers/firebase/updateCampaign';
+
 const blocks = [
   { type: 'text', label: 'Text', icon: Chat },
   { type: 'image', label: 'Image', icon: Image },
@@ -39,55 +46,77 @@ const blocks = [
   { type: 'instagram', label: 'Instagram', icon: Instagram },
 ];
 
-const BlocksPopup = () => (
-  <Box
-    background="light-2"
-    width="100%"
-    pad="large"
-    overflow="auto"
-    fill
-  >
-    <Heading
-      size="small"
-      margin={{ top: 'none', bottom: 'medium' }}
-    >
-      Select block type
-    </Heading>
-    <Text
-      size="xsmall"
-      color="dark-4"
-    >
-      There are many different block types that serve different purpose.
-      Feel free to experiment with various blocks to gets best results.
-    </Text>
-    <Box>
-      <Grid
-        columns={{
-          count: 3,
-          size: 'auto',
-        }}
-        gap="small"
-      >
-        { blocks.map((block) => {
-          const Icon = block.icon;
+const BlocksPopup = ({ onSelect }) => {
+  const { campaign, campaignId } = getCampaign();
+  const onBlockAddHandler = useCallback((type) => () => {
+    updateCampaign(campaignId, {
+      content: [
+        ...campaign.content,
+        { type },
+      ],
+    });
+    onSelect();
+  }, [campaign]);
 
-          return (
-            <Box
-              key={block.type}
-              background="light-1"
-              justify="center"
-              align="center"
-              round="medium"
-              pad="medium"
-            >
-              <Icon size="large" color="brand" />
-              <Text color="brand">{block.label}</Text>
-            </Box>
-          );
-        }) }
-      </Grid>
+  return (
+    <Box
+      background="light-2"
+      width="100%"
+      pad="large"
+      overflow="auto"
+      fill
+    >
+      <Heading
+        size="small"
+        margin={{ top: 'none', bottom: 'medium' }}
+      >
+        Select block type
+      </Heading>
+      <Text
+        size="xsmall"
+        color="dark-4"
+      >
+        There are many different block types that serve different purpose.
+        Feel free to experiment with various blocks to gets best results.
+      </Text>
+      <Box>
+        <Grid
+          columns={{
+            count: 3,
+            size: 'auto',
+          }}
+          gap="small"
+        >
+          { blocks.map((block) => {
+            const Icon = block.icon;
+
+            return (
+              <Box
+                key={block.type}
+                background="light-1"
+                justify="center"
+                align="center"
+                round="medium"
+                pad="medium"
+                onClick={onBlockAddHandler(block.type)}
+              >
+                <Icon size="large" color="brand" />
+                <Text color="brand">{block.label}</Text>
+              </Box>
+            );
+          }) }
+        </Grid>
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
+
+BlocksPopup.propTypes = {
+  onSelect: PropTypes.func,
+};
+
+BlocksPopup.defaultProps = {
+  onSelect: noop,
+};
 
 export default BlocksPopup;

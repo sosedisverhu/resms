@@ -54,7 +54,7 @@ const Content = () => {
         round="large"
         full
       >
-        <BlocksPopup />
+        <BlocksPopup onSelect={onBlockModalCloseHandler} />
       </Layer>
       )}
     </Box>
