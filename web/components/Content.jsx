@@ -1,29 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import {
-  Box, Button,
+  Box, Button, Layer,
 } from 'grommet';
 import { Add } from 'grommet-icons';
+import BlocksPopup from './BlocksPopup';
 import getCampaign from '../hooks/getCampaign';
 import blocksMap from './blocks/blocksMap';
-import updateCampaign from '../helpers/firebase/updateCampaign';
-
-const DEFAULT_BLOCK = {
-  type: 'text',
-  id: {},
-  value: '',
-};
 
 const Content = () => {
-  const { campaign, campaignId } = getCampaign();
-  const onBlockAddHandler = useCallback(() => {
-    updateCampaign(campaignId, {
-      content: [
-        ...campaign.content,
-        DEFAULT_BLOCK,
-      ],
-    });
-  }, [campaign]);
+  const { campaign } = getCampaign();
+  const [popupShowed, setPopupShowed] = useState();
+  const onBlockAddHandler = useCallback(() => setPopupShowed(true), []);
+  const onBlockModalCloseHandler = useCallback(() => setPopupShowed(false), []);
 
   if (!campaign) {
     return null;
@@ -53,6 +42,21 @@ const Content = () => {
           onClick={onBlockAddHandler}
         />
       </Box>
+      {popupShowed && (
+      <Layer
+        background="transparent"
+        overflow="hidden"
+        position="bottom"
+        margin={{ top: 'xlarge' }}
+        onClickOutside={onBlockModalCloseHandler}
+        onEsc={onBlockModalCloseHandler}
+        responsive={false}
+        round="large"
+        full
+      >
+        <BlocksPopup />
+      </Layer>
+      )}
     </Box>
   );
 };

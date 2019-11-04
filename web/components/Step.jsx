@@ -15,8 +15,18 @@ const Step = ({
           STEP&nbsp;
           {step}
         </Text>
-        <Heading>{title}</Heading>
-        <Text color="dark-4">{description}</Text>
+        <Heading
+          size="small"
+          margin={{ top: 'none', bottom: 'medium' }}
+        >
+          {title}
+        </Heading>
+        <Text
+          color="dark-4"
+          size="xsmall"
+        >
+          {description}
+        </Text>
       </Box>
       <Box>{children}</Box>
       <Box direction="row" justify="between">
