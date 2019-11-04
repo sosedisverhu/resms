@@ -13,7 +13,7 @@ const DEFAULT_BLOCK = {
   id: {},
   value: '',
 };
-let content = []
+
 const Content = () => {
   const { campaign, campaignId } = getCampaign();
   const onBlockAddHandler = useCallback(() => {
@@ -28,8 +28,6 @@ const Content = () => {
   if (!campaign) {
     return null;
   }
-
-  content = campaign.content;
 
   return (
     <Box gap="medium">

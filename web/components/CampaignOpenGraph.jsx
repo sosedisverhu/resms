@@ -1,13 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import getCampaign from '../hooks/getCampaign';
-
 import Link from 'next/link';
 
 import {
   Box, Text, TextInput, Button,
 } from 'grommet';
+import getCampaign from '../hooks/getCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const CampaignOpenGraph = ({ activity }) => {
@@ -79,7 +78,7 @@ CampaignOpenGraph.propTypes = {
   activity: PropTypes.shape({
     image: PropTypes.bool.isRequired,
     title: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
 };
 
 export default CampaignOpenGraph;
