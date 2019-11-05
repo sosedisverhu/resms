@@ -6,27 +6,26 @@ import Link from 'next/link';
 import {
   Box, Text, TextInput, Button,
 } from 'grommet';
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const CampaignOpenGraph = ({ activity }) => {
-  const { campaign, campaignId } = getCampaign();
-  const [value, setValue] = useState({ image: '', title: '' });
+  const { campaign, campaignId } = useCampaign();
+  const [image, setImage] = useState('');
+  const [title, setTitle] = useState('');
 
   const onImageChangeHandler = useCallback(
     () => updateCampaign(campaignId, { image: 'file' }), [],
   );
-  const onChangeHandler = useCallback((event) => setValue(event.target.value), []);
+  const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
   const onBlurHandler = useCallback(
-    (event) => updateCampaign(campaignId, { title: event.target.value }), [],
+    (event) => updateCampaign(campaignId, { title: event.target.value }), [campaignId],
   );
 
   useEffect(() => {
     if (campaign) {
-      setValue({
-        image: campaign.image,
-        title: campaign.title || '',
-      });
+      setImage(campaign.image);
+      setTitle(campaign.title || '');
     }
   }, [campaign]);
 
@@ -60,7 +59,7 @@ const CampaignOpenGraph = ({ activity }) => {
           placeholder="Type your call to action here..."
           onChange={onChangeHandler}
           onBlur={onBlurHandler}
-          value={value.title}
+          value={title}
         />
         <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
           <Text color="dark-4" size="xsmall">

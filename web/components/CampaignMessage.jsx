@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {
   Box,
 } from 'grommet';
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 
 import TextAreaAutoresize from './TextAreaAutoresize';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const CampaignMessage = ({ isActive }) => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
   const [value, setValue] = useState('');
 
   const onChangeHandler = useCallback((event) => setValue(event.target.value), []);

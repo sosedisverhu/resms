@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {
   Box,
 } from 'grommet';
-import getCampaign from '../../hooks/getCampaign';
+import useCampaign from '../../hooks/useCampaign';
 
 import TextAreaAutoresize from '../TextAreaAutoresize';
 import updateCampaign from '../../helpers/firebase/updateCampaign';
 
 const Text = ({ blockIndex }) => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
   const block = campaign ? campaign.content[blockIndex] : null;
   const [value, setValue] = useState('');
 

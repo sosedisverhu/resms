@@ -4,18 +4,17 @@ import {
   Box, Button,
 } from 'grommet';
 import { Add } from 'grommet-icons';
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 import blocksMap from './blocks/blocksMap';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const DEFAULT_BLOCK = {
   type: 'text',
-  id: {},
   value: '',
 };
 
 const Content = () => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
   const onBlockAddHandler = useCallback(() => {
     updateCampaign(campaignId, {
       content: [

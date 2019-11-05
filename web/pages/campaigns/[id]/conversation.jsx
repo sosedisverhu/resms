@@ -8,10 +8,10 @@ import isNull from 'lodash/isNull';
 import Content from '../../../components/Content';
 import Step from '../../../components/Step';
 
-import getCampaign from '../../../hooks/getCampaign';
+import useCampaign from '../../../hooks/useCampaign';
 
 const CampaignConversationStep = () => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
     return <Text>Loading</Text>;
