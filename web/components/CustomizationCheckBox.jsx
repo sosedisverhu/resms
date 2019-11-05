@@ -7,11 +7,11 @@ import {
   CheckBox,
 } from 'grommet';
 
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const CustomizationCheckBox = ({ type, title, description }) => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
 
   const [checked, setChecked] = useState(false);
   const onChange = useCallback((event) => {

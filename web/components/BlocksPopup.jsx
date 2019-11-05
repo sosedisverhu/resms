@@ -24,7 +24,7 @@ import {
   Instagram,
 } from 'grommet-icons';
 
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
@@ -47,7 +47,7 @@ const blocks = [
 ];
 
 const BlocksPopup = ({ onSelect }) => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
   const onBlockAddHandler = useCallback((type) => () => {
     updateCampaign(campaignId, {
       content: [

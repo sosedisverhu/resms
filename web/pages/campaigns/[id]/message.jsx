@@ -36,9 +36,11 @@ const CampaignMessageStep = () => {
 
   return (
     <Step
+      backUrlShowed={false}
       submitDisabled={!(campaign.message && campaign.title && campaign.image)}
-      submitHref={`/campaigns/${campaignId}/conversation`}
-      step={1}
+      submitHref="/campaigns/[id]/conversation"
+      submitAs={`/campaigns/${campaignId}/conversation`}
+      stepLabel="STEP 1"
       title="Compose message"
       description="The message you specify will be send to recipent\'s phone number as SMS.'"
     >

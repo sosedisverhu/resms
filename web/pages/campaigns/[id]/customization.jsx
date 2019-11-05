@@ -5,7 +5,7 @@ import {
 } from 'grommet';
 
 import isNull from 'lodash/isNull';
-import getCampaign from '../../../hooks/getCampaign';
+import useCampaign from '../../../hooks/useCampaign';
 import Step from '../../../components/Step';
 import CustomizationCheckBox from '../../../components/CustomizationCheckBox';
 
@@ -17,7 +17,7 @@ const settings = [
 ];
 
 const CampaignMessageStep = () => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
     return <Text>Loading</Text>;
@@ -29,9 +29,12 @@ const CampaignMessageStep = () => {
 
   return (
     <Step
-      backUrl={{ showed: true, title: 'Edit conversation', href: `/campaigns/${campaignId}/conversation` }}
-      submitHref={`/campaigns/${campaignId}/preview`}
-      step={3}
+      backUrlTitle="Edit conversation"
+      backUrlHref="/campaigns/[id]/conversation"
+      backUrlAs={`/campaigns/${campaignId}/conversation`}
+      submitHref="/campaigns/[id]/preview"
+      submitAs={`/campaigns/${campaignId}/preview`}
+      stepLabel="STEP 3"
       title="Customize experience"
       description="Now lets customize user experience to match your needs. "
     >
