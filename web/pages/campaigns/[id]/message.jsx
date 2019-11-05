@@ -7,7 +7,7 @@ import {
 import find from 'lodash/find';
 
 import isNull from 'lodash/isNull';
-import getCampaign from '../../../hooks/getCampaign';
+import useCampaign from '../../../hooks/useCampaign';
 import Step from '../../../components/Step';
 import CampaignMessage from '../../../components/CampaignMessage';
 import CampaignOpenGraph from '../../../components/CampaignOpenGraph';
@@ -15,7 +15,7 @@ import CampaignOpenGraph from '../../../components/CampaignOpenGraph';
 const fieldsOrder = ['message', 'image', 'title'];
 
 const CampaignMessageStep = () => {
-  const { campaign, campaignId } = getCampaign();
+  const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
     return <Text>Loading</Text>;

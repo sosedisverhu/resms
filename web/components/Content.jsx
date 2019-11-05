@@ -5,11 +5,11 @@ import {
 } from 'grommet';
 import { Add } from 'grommet-icons';
 import BlocksPopup from './BlocksPopup';
-import getCampaign from '../hooks/getCampaign';
+import useCampaign from '../hooks/useCampaign';
 import blocksMap from './blocks/blocksMap';
 
 const Content = () => {
-  const { campaign } = getCampaign();
+  const { campaign } = useCampaign();
   const [popupShowed, setPopupShowed] = useState();
   const onBlockAddHandler = useCallback(() => setPopupShowed(true), []);
   const onBlockModalCloseHandler = useCallback(() => setPopupShowed(false), []);
