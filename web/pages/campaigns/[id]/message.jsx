@@ -14,7 +14,7 @@ import CampaignOpenGraph from '../../../components/CampaignOpenGraph';
 
 const fieldsOrder = ['message', 'image', 'title'];
 
-const CampaignMessageStep = () => {
+function CampaignMessageStep() {
   const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
@@ -48,6 +48,6 @@ const CampaignMessageStep = () => {
       </Box>
     </Step>
   );
-};
+}
 
 export default CampaignMessageStep;

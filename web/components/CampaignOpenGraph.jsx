@@ -9,13 +9,13 @@ import {
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
-const CampaignOpenGraph = ({ activity }) => {
+function CampaignOpenGraph({ activity }) {
   const { campaign, campaignId } = useCampaign();
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
 
   const onImageChangeHandler = useCallback(
-    () => updateCampaign(campaignId, { image: 'file' }), [],
+    () => updateCampaign(campaignId, { image: 'file' }), [campaignId],
   );
   const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
   const onBlurHandler = useCallback(
@@ -71,7 +71,7 @@ const CampaignOpenGraph = ({ activity }) => {
       </Box>
     </Box>
   );
-};
+}
 
 CampaignOpenGraph.propTypes = {
   activity: PropTypes.shape({

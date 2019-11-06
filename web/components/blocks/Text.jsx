@@ -9,7 +9,7 @@ import useCampaign from '../../hooks/useCampaign';
 import TextAreaAutoresize from '../TextAreaAutoresize';
 import updateCampaign from '../../helpers/firebase/updateCampaign';
 
-const Text = ({ blockIndex }) => {
+function Text({ blockIndex }) {
   const { campaign, campaignId } = useCampaign();
   const block = campaign ? campaign.content[blockIndex] : null;
   const [value, setValue] = useState('');
@@ -40,7 +40,7 @@ const Text = ({ blockIndex }) => {
       />
     </Box>
   );
-};
+}
 
 Text.propTypes = {
   blockIndex: PropTypes.number.isRequired,

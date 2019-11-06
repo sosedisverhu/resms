@@ -13,7 +13,7 @@ const DEFAULT_BLOCK = {
   value: '',
 };
 
-const Content = () => {
+function Content() {
   const { campaign, campaignId } = useCampaign();
   const onBlockAddHandler = useCallback(() => {
     updateCampaign(campaignId, {
@@ -54,6 +54,6 @@ const Content = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default Content;

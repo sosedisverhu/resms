@@ -5,44 +5,46 @@ import {
 } from 'grommet';
 import { Close, Edit } from 'grommet-icons';
 
-const Step = ({
+function Step({
   children, submitDisabled, submitHref, backUrl, step, title, description,
-}) => (
-  <Stack anchor="top-right">
-    <Box background="light-2" height="100vh" pad="large" justify="between">
-      <Box>
-        <Text color="dark-4" size="small">
-          STEP&nbsp;
-          {step}
-        </Text>
-        <Heading>{title}</Heading>
-        <Text color="dark-4">{description}</Text>
-      </Box>
-      <Box>{children}</Box>
-      <Box direction="row" justify="between">
-        {backUrl.showed ? (
+}) {
+  return (
+    <Stack anchor="top-right">
+      <Box background="light-2" height="100vh" pad="large" justify="between">
+        <Box>
+          <Text color="dark-4" size="small">
+            STEP&nbsp;
+            {step}
+          </Text>
+          <Heading>{title}</Heading>
+          <Text color="dark-4">{description}</Text>
+        </Box>
+        <Box>{children}</Box>
+        <Box direction="row" justify="between">
+          {backUrl.showed ? (
+            <Button
+              plain
+              href={backUrl.href}
+              icon={<Edit size="small" />}
+              label={backUrl.title}
+              size="xsmall"
+            />
+          ) : (
+            <span />
+          )}
           <Button
-            plain
-            href={backUrl.href}
-            icon={<Edit size="small" />}
-            label={backUrl.title}
-            size="xsmall"
+            label="Continue"
+            color="brand"
+            primary
+            disabled={submitDisabled}
+            href={submitHref}
           />
-        ) : (
-          <span />
-        )}
-        <Button
-          label="Continue"
-          color="brand"
-          primary
-          disabled={submitDisabled}
-          href={submitHref}
-        />
+        </Box>
       </Box>
-    </Box>
-    <Button margin="small" icon={<Close color="dark-4" size="medium" />} />
-  </Stack>
-);
+      <Button margin="small" icon={<Close color="dark-4" size="medium" />} />
+    </Stack>
+  );
+}
 
 Step.propTypes = {
   children: PropTypes.node.isRequired,

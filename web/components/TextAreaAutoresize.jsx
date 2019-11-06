@@ -8,7 +8,7 @@ import noop from 'lodash/noop';
 
 const textarea = React.createRef();
 
-const TextAreaAutoresize = ({ onChange, ...rest }) => {
+function TextAreaAutoresize({ onChange, ...rest }) {
   const [rows, setRows] = useState(1);
   const onChangeHandler = useCallback((event) => {
     const txt = textarea.current;
@@ -36,7 +36,7 @@ const TextAreaAutoresize = ({ onChange, ...rest }) => {
       onChange={onChangeHandler}
     />
   );
-};
+}
 
 TextAreaAutoresize.propTypes = {
   onChange: PropTypes.func,
