@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import {
-  Box, Text, TextInput, Button, Grommet,
+  Box, Text, TextInput, Button, Grommet, Image,
 } from 'grommet';
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
@@ -36,14 +36,17 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
   const [title, setTitle] = useState('');
 
   const onImageChangeHandler = useCallback(
-    (event) => {
+    async (event) => {
       const file = event.target.files[0];
-      const ref = storage.ref().child(file.name);
-      const url = ref.getDownloadURL();
+      const uploadTask = storage.ref().child(`images/${file.name}`).put(file);
 
-      updateCampaign(campaignId, { image: 'file' });
-
-      onBlur('image', 'file');
+      uploadTask.on('state_changed',
+        noop, noop, () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            updateCampaign(campaignId, { image: downloadURL });
+            onBlur('image', downloadURL);
+          });
+        });
     }, [campaign],
   );
   const onFocusHandler = useCallback(() => onFocus('title'), [campaign]);
@@ -79,9 +82,18 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
               accept="image/*"
               style={{ display: 'none' }}
             />
-            <Text color="dark-4" size="small">
-              Select an image...
-            </Text>
+            { image ? (
+              <Box fill height="small" width="small">
+                <Image
+                  fit="cover"
+                  src={image}
+                />
+              </Box>
+            ) : (
+              <Text color="dark-4" size="small">
+                Select an image...
+              </Text>
+            ) }
           </Box>
         </label>
       </Button>
