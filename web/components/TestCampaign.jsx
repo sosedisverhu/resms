@@ -8,7 +8,7 @@ import {
 
 const options = ['+371', '+372', '+373', '+374', '+375'];
 
-const TestCampaign = () => {
+function TestCampaign() {
   const [activeMobilePrefix, setActiveMobilePrefix] = useState(options[0]);
 
   const onSelectChange = useCallback(({ option }) => setActiveMobilePrefix(option), []);
@@ -25,7 +25,7 @@ const TestCampaign = () => {
           <Box gap="small" direction="row" align="start">
             <Box
               background="white"
-              width="120px"
+              width={{ min: '105px' }}
               round="medium"
               border={{
                 color: 'status-unknown',
@@ -34,6 +34,7 @@ const TestCampaign = () => {
               }}
             >
               <Select
+                width="120px"
                 round="large"
                 options={options}
                 value={activeMobilePrefix}
@@ -46,6 +47,7 @@ const TestCampaign = () => {
               background="white"
               round="medium"
               pad="0"
+              fill
               border={{
                 color: 'status-unknown',
                 size: 'small',
@@ -64,6 +66,6 @@ const TestCampaign = () => {
       </Form>
     </Box>
   );
-};
+}
 
 export default TestCampaign;

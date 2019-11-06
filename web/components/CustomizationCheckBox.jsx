@@ -10,7 +10,7 @@ import {
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
-const CustomizationCheckBox = ({ type, title, description }) => {
+function CustomizationCheckBox({ type, title, description }) {
   const { campaign, campaignId } = useCampaign();
 
   const [checked, setChecked] = useState(false);
@@ -39,7 +39,7 @@ const CustomizationCheckBox = ({ type, title, description }) => {
       </Box>
     </Box>
   );
-};
+}
 
 CustomizationCheckBox.propTypes = {
   type: PropTypes.string.isRequired,

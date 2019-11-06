@@ -11,7 +11,7 @@ import TestCampaign from '../../../components/TestCampaign';
 import useCampaign from '../../../hooks/useCampaign';
 import Step from '../../../components/Step';
 
-const CampaignMessageStep = () => {
+function CampaignMessageStep() {
   const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
@@ -42,7 +42,7 @@ const CampaignMessageStep = () => {
             justify="start"
             color="brand"
             href={`/campaigns/${campaignId}`}
-            icon={<NewWindow color="brand" size="medium" />}
+            icon={<NewWindow color="brand" size="small" />}
             label={`https://resms.io/${campaignId}`}
             // label="https://resms.io/baar1"
             size="xsmall"
@@ -55,6 +55,6 @@ const CampaignMessageStep = () => {
       </Box>
     </Step>
   );
-};
+}
 
 export default CampaignMessageStep;

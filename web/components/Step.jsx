@@ -32,7 +32,7 @@ function Step({
           </Text>
           <Heading
             size="small"
-            margin={{ top: 'none', bottom: 'medium' }}
+            margin={{ top: 'small', bottom: 'small' }}
           >
             {title}
           </Heading>
@@ -73,7 +73,7 @@ function Step({
           )}
         </Box>
       </Box>
-      <Button margin="small" icon={<Close color="dark-4" size="medium" />} />
+      <Button margin="small" icon={<Close color="dark-4" size="small" />} />
     </Stack>
   );
 }

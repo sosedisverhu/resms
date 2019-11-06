@@ -16,7 +16,7 @@ const settings = [
   { type: 'notifications', title: 'Enable push notifications', description: 'Ask recipient to allow push notifications.' },
 ];
 
-const CampaignMessageStep = () => {
+function CampaignMessageStep() {
   const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
@@ -36,22 +36,24 @@ const CampaignMessageStep = () => {
       submitAs={`/campaigns/${campaignId}/preview`}
       stepLabel="STEP 3"
       title="Customize experience"
-      description="Now lets customize user experience to match your needs. "
+      description="Now lets customize user experience to match your needs."
     >
       <Box gap="medium" align="center">
         <Box>
           { settings.map((setting) => (
-            <CustomizationCheckBox
-              type={setting.type}
-              title={setting.title}
-              description={setting.description}
-              key={setting.type}
-            />
+            <Box margin={{ top: 'medium' }}>
+              <CustomizationCheckBox
+                type={setting.type}
+                title={setting.title}
+                description={setting.description}
+                key={setting.type}
+              />
+            </Box>
           )) }
         </Box>
       </Box>
     </Step>
   );
-};
+}
 
 export default CampaignMessageStep;

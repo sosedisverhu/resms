@@ -1,16 +1,36 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Link from 'next/link';
+import noop from 'lodash/noop';
 
 import {
-  Box, Text, TextInput, Button,
+  Box, Text, TextInput, Button, Grommet,
 } from 'grommet';
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 import { storage } from '../helpers/firebase';
 
-function CampaignOpenGraph({ activity }) {
+const boxStyles = {
+  transition: 'background-color 150ms',
+};
+const activeBoxTheme = {
+  box: {
+    extend: () => ({
+      ...boxStyles,
+      backgroundColor: '#7d4cdb',
+    }),
+  },
+};
+const boxTheme = {
+  box: {
+    extend: () => ({
+      ...boxStyles,
+      backgroundColor: '#fff',
+    }),
+  },
+};
+
+function CampaignOpenGraph({ activity, onFocus, onBlur }) {
   const { campaign, campaignId } = useCampaign();
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
@@ -21,12 +41,18 @@ function CampaignOpenGraph({ activity }) {
       const ref = storage.ref().child(file.name);
       const url = ref.getDownloadURL();
 
-      return updateCampaign(campaignId, { image: 'file' });
-    }, [campaignId],
+      updateCampaign(campaignId, { image: 'file' });
+
+      onBlur('image', 'file');
+    }, [campaign],
   );
+  const onFocusHandler = useCallback(() => onFocus('title'), [campaign]);
   const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
   const onBlurHandler = useCallback(
-    (event) => updateCampaign(campaignId, { title: event.target.value }), [campaignId],
+    (event) => {
+      updateCampaign(campaignId, { title: event.target.value });
+      onBlur('title', event.target.value);
+    }, [campaign],
   );
 
   useEffect(() => {
@@ -59,23 +85,24 @@ function CampaignOpenGraph({ activity }) {
           </Box>
         </label>
       </Button>
-      <Box background={activity.title ? 'brand' : 'white'}>
-        <TextInput
-          plain
-          size="xsmall"
-          placeholder="Type your call to action here..."
-          onChange={onChangeHandler}
-          onBlur={onBlurHandler}
-          value={title}
-        />
-        <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
-          <Text color="dark-4" size="xsmall">
-            <Link href="resms.io/am1a">
-              <a>resms.io/am1a</a>
-            </Link>
-          </Text>
+      <Grommet theme={activity.title ? activeBoxTheme : boxTheme}>
+        <Box>
+          <TextInput
+            size="xsmall"
+            placeholder="Type your call to action here..."
+            onChange={onChangeHandler}
+            onBlur={onBlurHandler}
+            onFocus={onFocusHandler}
+            value={title}
+            plain
+          />
+          <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
+            <Text color="dark-4" size="xsmall">
+              resms.io/am1a
+            </Text>
+          </Box>
         </Box>
-      </Box>
+      </Grommet>
     </Box>
   );
 }
@@ -85,6 +112,13 @@ CampaignOpenGraph.propTypes = {
     image: PropTypes.bool.isRequired,
     title: PropTypes.bool.isRequired,
   }).isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+};
+
+CampaignOpenGraph.defaultProps = {
+  onFocus: noop,
+  onBlur: noop,
 };
 
 export default CampaignOpenGraph;

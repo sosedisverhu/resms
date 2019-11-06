@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Box, Text,
 } from 'grommet';
-import Link from 'next/link';
 import isNull from 'lodash/isNull';
 import Content from '../../../components/Content';
 import Step from '../../../components/Step';
@@ -52,9 +51,7 @@ function CampaignConversationStep() {
             <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
             <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
               <Text color="dark-4" size="xsmall">
-                <Link href="resms.io/am1a">
-                  <a>resms.io/am1a</a>
-                </Link>
+                resms.io/am1a
               </Text>
             </Box>
           </Box>

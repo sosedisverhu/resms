@@ -18,7 +18,7 @@ function copyToClipboard(text) {
   document.body.removeChild(input);
 }
 
-const CampaignMessageStep = () => {
+function CampaignMessageStep() {
   const { campaign, campaignId } = useCampaign();
 
   const onCopyClick = useCallback(() => copyToClipboard(`${campaign.message} https://resms.io/${campaignId}`), [campaign]);
@@ -54,12 +54,12 @@ const CampaignMessageStep = () => {
         >
           <Text size="small">{campaign.message}</Text>
           &nbsp;
-          {/*<Text color="brand">{`https://resms.io/${campaignId}`}</Text>*/}
+          {/* <Text color="brand">{`https://resms.io/${campaignId}`}</Text> */}
           <Text size="small" color="brand">https://resms.io/baar1</Text>
         </Box>
       </Box>
     </Step>
   );
-};
+}
 
 export default CampaignMessageStep;

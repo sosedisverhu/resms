@@ -46,7 +46,7 @@ const blocks = [
   { type: 'instagram', label: 'Instagram', icon: Instagram },
 ];
 
-const BlocksPopup = ({ onSelect }) => {
+function BlocksPopup({ onSelect }) {
   const { campaign, campaignId } = useCampaign();
   const onBlockAddHandler = useCallback((type) => () => {
     updateCampaign(campaignId, {
@@ -79,7 +79,7 @@ const BlocksPopup = ({ onSelect }) => {
         There are many different block types that serve different purpose.
         Feel free to experiment with various blocks to gets best results.
       </Text>
-      <Box>
+      <Box margin={{ top: 'large' }}>
         <Grid
           columns={{
             count: 3,
@@ -98,10 +98,11 @@ const BlocksPopup = ({ onSelect }) => {
                 align="center"
                 round="medium"
                 pad="medium"
+                gap="medium"
                 onClick={onBlockAddHandler(block.type)}
               >
-                <Icon size="large" color="brand" />
-                <Text color="brand">{block.label}</Text>
+                <Icon size="medium" color="brand" />
+                <Text color="brand" size="small">{block.label}</Text>
               </Box>
             );
           }) }
@@ -109,7 +110,7 @@ const BlocksPopup = ({ onSelect }) => {
       </Box>
     </Box>
   );
-};
+}
 
 BlocksPopup.propTypes = {
   onSelect: PropTypes.func,
