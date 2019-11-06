@@ -8,6 +8,7 @@ import {
 } from 'grommet';
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
+import { storage } from '../helpers/firebase';
 
 const CampaignOpenGraph = ({ activity }) => {
   const { campaign, campaignId } = useCampaign();
@@ -15,7 +16,13 @@ const CampaignOpenGraph = ({ activity }) => {
   const [title, setTitle] = useState('');
 
   const onImageChangeHandler = useCallback(
-    () => updateCampaign(campaignId, { image: 'file' }), [],
+    (event) => {
+      const file = event.target.files[0];
+      const ref = storage.ref().child(file.name);
+      const url = ref.getDownloadURL();
+
+      return updateCampaign(campaignId, { image: 'file' });
+    }, [],
   );
   const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
   const onBlurHandler = useCallback(

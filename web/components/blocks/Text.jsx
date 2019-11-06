@@ -2,12 +2,34 @@ import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  Grommet,
   Box,
 } from 'grommet';
 import useCampaign from '../../hooks/useCampaign';
 
 import TextAreaAutoresize from '../TextAreaAutoresize';
 import updateCampaign from '../../helpers/firebase/updateCampaign';
+
+const inputStyles = {
+  transition: 'background-color 150ms',
+  borderRadius: '24px',
+};
+const activeInputTheme = {
+  textArea: {
+    extend: () => ({
+      ...inputStyles,
+      backgroundColor: '#7d4cdb',
+    }),
+  },
+};
+const inputTheme = {
+  textArea: {
+    extend: () => ({
+      ...inputStyles,
+      backgroundColor: '#fff',
+    }),
+  },
+};
 
 const Text = ({ blockIndex }) => {
   const { campaign, campaignId } = useCampaign();
@@ -28,16 +50,18 @@ const Text = ({ blockIndex }) => {
   }, [block]);
 
   return (
-    <Box round="large" background={!value ? 'brand' : 'white'}>
-      <TextAreaAutoresize
-        size="small"
-        plain
-        resize={false}
-        placeholder="Type your message here..."
-        onChange={onChangeHandler}
-        onBlur={onBlurHandler}
-        value={value}
-      />
+    <Box round="large">
+      <Grommet theme={!value ? activeInputTheme : inputTheme}>
+        <TextAreaAutoresize
+          size="small"
+          plain
+          resize={false}
+          placeholder="Type your message here..."
+          onChange={onChangeHandler}
+          onBlur={onBlurHandler}
+          value={value}
+        />
+      </Grommet>
     </Box>
   );
 };

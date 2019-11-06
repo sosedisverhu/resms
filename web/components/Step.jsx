@@ -64,7 +64,7 @@ const Step = ({
               color="brand"
               primary
               disabled={submitDisabled}
-              href={submitHref}
+              href={!submitDisabled ? submitHref : undefined}
             />
           </Link>
         ) : (

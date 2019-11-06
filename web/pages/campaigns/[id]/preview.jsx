@@ -43,8 +43,8 @@ const CampaignMessageStep = () => {
             color="brand"
             href={`/campaigns/${campaignId}`}
             icon={<NewWindow color="brand" size="medium" />}
-            // label={`https://resms.io/${campaignId}`}
-            label="https://resms.io/baar1"
+            label={`https://resms.io/${campaignId}`}
+            // label="https://resms.io/baar1"
             size="xsmall"
             target="_blank"
           />
