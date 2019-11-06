@@ -31,7 +31,7 @@ const inputTheme = {
   },
 };
 
-const Text = ({ blockIndex }) => {
+function Text({ blockIndex }) {
   const { campaign, campaignId } = useCampaign();
   const block = campaign ? campaign.content[blockIndex] : null;
   const [value, setValue] = useState('');
@@ -64,7 +64,7 @@ const Text = ({ blockIndex }) => {
       </Grommet>
     </Box>
   );
-};
+}
 
 Text.propTypes = {
   blockIndex: PropTypes.number.isRequired,

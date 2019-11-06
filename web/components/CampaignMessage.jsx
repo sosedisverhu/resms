@@ -9,13 +9,13 @@ import useCampaign from '../hooks/useCampaign';
 import TextAreaAutoresize from './TextAreaAutoresize';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
-const CampaignMessage = ({ isActive }) => {
+function CampaignMessage({ isActive }) {
   const { campaign, campaignId } = useCampaign();
   const [value, setValue] = useState('');
 
   const onChangeHandler = useCallback((event) => setValue(event.target.value), []);
   const onBlurHandler = useCallback(
-    (event) => updateCampaign(campaignId, { message: event.target.value }), [],
+    (event) => updateCampaign(campaignId, { message: event.target.value }), [campaignId],
   );
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const CampaignMessage = ({ isActive }) => {
       />
     </Box>
   );
-};
+}
 
 CampaignMessage.propTypes = {
   isActive: PropTypes.bool.isRequired,

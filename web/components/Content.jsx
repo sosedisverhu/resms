@@ -8,7 +8,7 @@ import BlocksPopup from './BlocksPopup';
 import useCampaign from '../hooks/useCampaign';
 import blocksMap from './blocks/blocksMap';
 
-const Content = () => {
+function Content() {
   const { campaign } = useCampaign();
   const [popupShowed, setPopupShowed] = useState();
   const onBlockAddHandler = useCallback(() => setPopupShowed(true), []);
@@ -59,6 +59,6 @@ const Content = () => {
       )}
     </Box>
   );
-};
+}
 
 export default Content;

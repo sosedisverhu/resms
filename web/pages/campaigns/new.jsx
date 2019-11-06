@@ -2,26 +2,25 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { firestore } from '../../helpers/firebase';
 
-const NewCampaign = () => {
+function NewCampaign() {
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect(async () => {
     const { id } = firestore.collection('campaigns').doc();
 
-    firestore
+    await firestore
       .doc(`campaigns/${id}`)
       .set({
         createdAt: +new Date(),
         content: [],
         settings: {},
-      })
-      .then(() => {
-        router.push(`/campaigns/${id}/message`);
       });
+
+    router.push(`/campaigns/${id}/message`);
   }, []);
 
 
   return <div />;
-};
+}
 
 export default NewCampaign;

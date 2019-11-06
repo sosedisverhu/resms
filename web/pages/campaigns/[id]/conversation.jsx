@@ -10,7 +10,7 @@ import Step from '../../../components/Step';
 
 import useCampaign from '../../../hooks/useCampaign';
 
-const CampaignConversationStep = () => {
+function CampaignConversationStep() {
   const { campaign, campaignId } = useCampaign();
 
   if (isNull(campaign)) {
@@ -65,6 +65,6 @@ const CampaignConversationStep = () => {
       </Box>
     </Step>
   );
-};
+}
 
 export default CampaignConversationStep;

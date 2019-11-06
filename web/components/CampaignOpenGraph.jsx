@@ -10,7 +10,7 @@ import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 import { storage } from '../helpers/firebase';
 
-const CampaignOpenGraph = ({ activity }) => {
+function CampaignOpenGraph({ activity }) {
   const { campaign, campaignId } = useCampaign();
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
@@ -22,7 +22,7 @@ const CampaignOpenGraph = ({ activity }) => {
       const url = ref.getDownloadURL();
 
       return updateCampaign(campaignId, { image: 'file' });
-    }, [],
+    }, [campaignId],
   );
   const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
   const onBlurHandler = useCallback(
@@ -78,7 +78,7 @@ const CampaignOpenGraph = ({ activity }) => {
       </Box>
     </Box>
   );
-};
+}
 
 CampaignOpenGraph.propTypes = {
   activity: PropTypes.shape({
