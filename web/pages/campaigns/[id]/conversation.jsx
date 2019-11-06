@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Box, Text,
+  Box, Image, Text,
 } from 'grommet';
 import isNull from 'lodash/isNull';
 import Content from '../../../components/Content';
@@ -43,9 +43,12 @@ function CampaignConversationStep() {
             justify="center"
             background="light-1"
           >
-            <Text color="dark-4" size="small">
-              Select an image...
-            </Text>
+            <Box fill height="small" width="small">
+              <Image
+                fit="cover"
+                src={campaign.image}
+              />
+            </Box>
           </Box>
           <Box background="white">
             <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
