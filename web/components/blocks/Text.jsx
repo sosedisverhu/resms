@@ -60,8 +60,8 @@ function Text({
   }, [block]);
 
   return (
-    <Box round="large">
-      <Grommet theme={isActive ? activeInputTheme : inputTheme}>
+    <Grommet theme={isActive ? activeInputTheme : inputTheme} fill>
+      <Box round="large" fill justify="start">
         <TextAreaAutoresize
           size="small"
           plain
@@ -72,8 +72,9 @@ function Text({
           onBlur={onBlurHandler}
           value={value}
         />
-      </Grommet>
-    </Box>
+      </Box>
+    </Grommet>
+
   );
 }
 

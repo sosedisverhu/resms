@@ -14,6 +14,7 @@ function Step({
   submitTitle,
   submitHref,
   submitShowed,
+  submitButtonPrimary,
   submitAs,
   backUrlShowed,
   backUrlHref,
@@ -43,7 +44,9 @@ function Step({
             {description}
           </Text>
         </Box>
-        <Box>{children}</Box>
+        <Box overflow="hidden" pad={{ vertical: 'xlarge' }}>
+          <Box overflow="auto">{children}</Box>
+        </Box>
         <Box direction="row" justify="between" align="center">
           {backUrlShowed ? (
             <Link href={backUrlHref} as={backUrlAs}>
@@ -63,7 +66,7 @@ function Step({
               <Button
                 label={submitTitle}
                 color="brand"
-                primary
+                primary={submitButtonPrimary}
                 disabled={submitDisabled}
                 href={!submitDisabled ? submitHref : undefined}
               />
@@ -84,6 +87,7 @@ Step.propTypes = {
   description: PropTypes.string.isRequired,
   submitDisabled: PropTypes.bool,
   submitShowed: PropTypes.bool,
+  submitButtonPrimary: PropTypes.bool,
   submitTitle: PropTypes.string,
   submitHref: PropTypes.string,
   submitAs: PropTypes.string,
@@ -96,6 +100,7 @@ Step.propTypes = {
 Step.defaultProps = {
   submitDisabled: false,
   submitShowed: true,
+  submitButtonPrimary: true,
   submitTitle: 'Continue',
   backUrlTitle: 'Back',
   backUrlHref: '/',

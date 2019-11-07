@@ -41,12 +41,11 @@ function CampaignMessageStep() {
       <Box gap="medium" align="center">
         <Box>
           { settings.map((setting) => (
-            <Box margin={{ top: 'medium' }}>
+            <Box margin={{ top: 'medium' }} key={setting.type}>
               <CustomizationCheckBox
                 type={setting.type}
                 title={setting.title}
                 description={setting.description}
-                key={setting.type}
               />
             </Box>
           )) }

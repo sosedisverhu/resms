@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Box, Button, Text,
+  Box, Button, Text, Anchor,
 } from 'grommet';
 
 import { NewWindow } from 'grommet-icons';
@@ -36,19 +36,21 @@ function CampaignMessageStep() {
     >
       <Box>
         <Text>Preview campaign in browser</Text>
-        <Box align="start">
-          <Button
-            plain
-            justify="start"
-            color="brand"
-            href={`/campaigns/${campaignId}`}
-            icon={<NewWindow color="brand" size="small" />}
-            label={`https://resms.io/${campaignId}`}
-            // label="https://resms.io/baar1"
-            size="xsmall"
-            target="_blank"
-          />
-        </Box>
+        <Anchor>
+          <Box align="start">
+            <Button
+              plain
+              justify="start"
+              color="brand"
+              href={`/campaigns/${campaignId}`}
+              reverse
+              icon={<NewWindow color="brand" size="small" />}
+              label={`https://resms.io/${campaignId}`}
+              size="xsmall"
+              target="_blank"
+            />
+          </Box>
+        </Anchor>
         <Box margin={{ top: 'xlarge' }} align="start">
           <TestCampaign />
         </Box>

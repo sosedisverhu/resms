@@ -28,6 +28,7 @@ function CampaignConversationStep() {
       submitDisabled={!campaign.content.length || campaign.content.some((block) => !block.value)}
       submitHref="/campaigns/[id]/customization"
       submitAs={`/campaigns/${campaignId}/customization`}
+      submitButtonPrimary={false}
       stepLabel="STEP 2"
       title="Build conversation"
       description="The conversation you're about to build is happening after recipient clicks a link in the original SMS."
@@ -52,7 +53,7 @@ function CampaignConversationStep() {
           </Box>
           <Box background="white">
             <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
-            <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
+            <Box pad={{ horizontal: 'small', bottom: 'medium' }} responsive={false}>
               <Text color="dark-4" size="xsmall">
                 resms.io/am1a
               </Text>

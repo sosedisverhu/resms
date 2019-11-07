@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import {
-  Grid, Box, Heading, Text,
+  Grid, Box, Heading, Text, Layer,
 } from 'grommet';
 import {
   Chat,
@@ -23,6 +23,7 @@ import {
   Vimeo,
   Instagram,
 } from 'grommet-icons';
+import BlockPreviewCard from './BlockPreviewCard';
 
 import useCampaign from '../hooks/useCampaign';
 
@@ -46,78 +47,86 @@ const blocks = [
   { type: 'instagram', label: 'Instagram', icon: Instagram },
 ];
 
-function BlocksPopup({ onSelect }) {
+function BlocksPopup({ onClose, visible }) {
   const { campaign, campaignId } = useCampaign();
-  const onBlockAddHandler = useCallback((type) => () => {
+  const onBlockAddHandler = useCallback((type) => {
     updateCampaign(campaignId, {
       content: [
         ...campaign.content,
         { type },
       ],
     });
-    onSelect();
-  }, [campaign]);
+    onClose();
+  }, [campaignId, campaign, onClose]);
+
+  if (!visible) {
+    return null;
+  }
 
   return (
-    <Box
-      background="light-2"
-      width="100%"
-      pad="large"
-      overflow="auto"
-      fill
+    <Layer
+      background="transparent"
+      overflow="hidden"
+      position="bottom"
+      margin={{ top: 'xlarge' }}
+      onClickOutside={onClose}
+      onEsc={onClose}
+      responsive={false}
+      round="large"
+      full
     >
-      <Heading
-        size="small"
-        margin={{ top: 'none', bottom: 'medium' }}
+      <Box
+        background="light-2"
+        width="100%"
+        pad="large"
+        overflow="auto"
+        fill
       >
-        Select block type
-      </Heading>
-      <Text
-        size="xsmall"
-        color="dark-4"
-      >
-        There are many different block types that serve different purpose.
-        Feel free to experiment with various blocks to gets best results.
-      </Text>
-      <Box margin={{ top: 'large' }}>
-        <Grid
-          columns={{
-            count: 3,
-            size: 'auto',
-          }}
-          gap="small"
+        <Heading
+          size="small"
+          margin={{ top: 'none', bottom: 'medium' }}
         >
-          { blocks.map((block) => {
-            const Icon = block.icon;
-
-            return (
-              <Box
+          Select block type
+        </Heading>
+        <Text
+          size="xsmall"
+          color="dark-4"
+        >
+          There are many different block types that serve different purpose.
+          Feel free to experiment with various blocks to gets best results.
+        </Text>
+        <Box margin={{ top: 'large' }}>
+          <Grid
+            columns={{
+              count: 3,
+              size: 'auto',
+            }}
+            gap="small"
+          >
+            { blocks.map((block) => (
+              <BlockPreviewCard
                 key={block.type}
-                background="light-1"
-                justify="center"
-                align="center"
-                round="medium"
-                pad="medium"
-                gap="medium"
-                onClick={onBlockAddHandler(block.type)}
-              >
-                <Icon size="medium" color="brand" />
-                <Text color="brand" size="small">{block.label}</Text>
-              </Box>
-            );
-          }) }
-        </Grid>
+                type={block.type}
+                label={block.label}
+                icon={block.icon}
+                onBlockAdd={onBlockAddHandler}
+              />
+            )) }
+          </Grid>
+        </Box>
       </Box>
-    </Box>
+    </Layer>
   );
 }
 
 BlocksPopup.propTypes = {
-  onSelect: PropTypes.func,
+  onClose: PropTypes.func,
+  visible: PropTypes.bool,
 };
 
 BlocksPopup.defaultProps = {
-  onSelect: noop,
+  onClose: noop,
+  visible: false,
 };
 
 export default BlocksPopup;

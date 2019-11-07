@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import findIndex from 'lodash/findIndex';
 
 import {
-  Box, Button, Layer,
+  Box, Button,
 } from 'grommet';
 import { Add } from 'grommet-icons';
 import BlocksPopup from './BlocksPopup';
@@ -17,9 +17,9 @@ const getActiveBlockIndex = (content) => findIndex(
 function Content() {
   const [activeBlockIndex, setActiveBlockIndex] = useState(-1);
   const { campaign } = useCampaign();
-  const [popupShowed, setPopupShowed] = useState();
-  const onBlockAddHandler = useCallback(() => setPopupShowed(true), []);
-  const onBlockModalCloseHandler = useCallback(() => setPopupShowed(false), []);
+  const [popupVisible, setPopupVisible] = useState();
+  const onBlockAddHandler = useCallback(() => setPopupVisible(true), []);
+  const onBlockModalCloseHandler = useCallback(() => setPopupVisible(false), []);
 
   const onFocus = useCallback((blockIndex) => {
     const content = [...campaign.content];
@@ -75,26 +75,12 @@ function Content() {
               icon={<Add />}
               label="Add block"
               onClick={onBlockAddHandler}
-              primary
+              primary={!campaign.content.length}
             />
           )
         }
       </Box>
-      {popupShowed && (
-      <Layer
-        background="transparent"
-        overflow="hidden"
-        position="bottom"
-        margin={{ top: 'xlarge' }}
-        onClickOutside={onBlockModalCloseHandler}
-        onEsc={onBlockModalCloseHandler}
-        responsive={false}
-        round="large"
-        full
-      >
-        <BlocksPopup onSelect={onBlockModalCloseHandler} />
-      </Layer>
-      )}
+      <BlocksPopup visible={popupVisible} onClose={onBlockModalCloseHandler} />
     </Box>
   );
 }
