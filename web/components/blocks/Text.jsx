@@ -43,7 +43,15 @@ function Text({
   const block = campaign ? campaign.content[blockIndex] : null;
   const [value, setValue] = useState('');
 
-  const onChangeHandler = useCallback((event) => setValue(event.target.value), []);
+  const onChangeHandler = useCallback((event) => {
+    const prevValue = campaign.content[blockIndex].value;
+    if ((event.target.value && !prevValue) || (!event.target.value && prevValue)) {
+      campaign.content[blockIndex].value = event.target.value;
+
+      updateCampaign(campaignId, { content: campaign.content });
+    }
+    setValue(event.target.value);
+  }, [campaign, campaignId, blockIndex]);
   const onFocusHandler = useCallback(() => onFocus(blockIndex), [campaign]);
   const onBlurHandler = useCallback((event) => {
     campaign.content[blockIndex].value = event.target.value;

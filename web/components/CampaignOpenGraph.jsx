@@ -50,7 +50,12 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
     }, [campaign],
   );
   const onFocusHandler = useCallback(() => onFocus('title'), [campaign]);
-  const onChangeHandler = useCallback((event) => setTitle(event.target.value), []);
+  const onChangeHandler = useCallback((event) => {
+    if ((event.target.value && !campaign.title) || (!event.target.value && campaign.title)) {
+      updateCampaign(campaignId, { title: event.target.value });
+    }
+    setTitle(event.target.value);
+  }, [campaign, campaignId]);
   const onBlurHandler = useCallback(
     (event) => {
       updateCampaign(campaignId, { title: event.target.value });

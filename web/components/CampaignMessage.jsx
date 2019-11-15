@@ -36,8 +36,13 @@ function CampaignMessage({ isActive, onFocus, onBlur }) {
   const { campaign, campaignId } = useCampaign();
   const [value, setValue] = useState('');
 
-  const onChangeHandler = useCallback((event) => setValue(event.target.value), []);
   const onFocusHandler = useCallback(() => onFocus('message'), [campaign]);
+  const onChangeHandler = useCallback((event) => {
+    if ((event.target.value && !campaign.message) || (!event.target.value && campaign.message)) {
+      updateCampaign(campaignId, { message: event.target.value });
+    }
+    setValue(event.target.value);
+  }, [campaign, campaignId]);
   const onBlurHandler = useCallback(
     (event) => {
       updateCampaign(campaignId, { message: event.target.value });

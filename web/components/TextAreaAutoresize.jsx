@@ -26,7 +26,7 @@ function TextAreaAutoresize({ onChange, ...rest }) {
     }
 
     onChange(event);
-  }, []);
+  }, [onChange]);
 
   return (
     <TextArea
