@@ -33,7 +33,7 @@ const inputTheme = {
   },
 };
 
-function Text({
+function TextBlock({
   blockIndex,
   onFocus,
   onBlur,
@@ -86,17 +86,17 @@ function Text({
   );
 }
 
-Text.propTypes = {
+TextBlock.propTypes = {
   blockIndex: PropTypes.number.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   isActive: PropTypes.bool,
 };
 
-Text.defaultProps = {
+TextBlock.defaultProps = {
   onFocus: noop,
   onBlur: noop,
   isActive: false,
 };
 
-export default Text;
+export default TextBlock;

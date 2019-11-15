@@ -33,18 +33,17 @@ function CampaignConversationStep() {
       title="Build conversation"
       description="The conversation you're about to build is happening after recipient clicks a link in the original SMS."
     >
-      <Box gap="medium" width="70vw">
+      <Box gap="medium" width="60vw" height={{ min: 'auto' }}>
         <Box round="large" background="white" pad="11px" height={{ min: 'auto' }}>
           <Text size="small" weight="bold">{campaign.message}</Text>
         </Box>
-        <Box round="large" overflow="hidden">
+        <Box round="large" overflow="hidden" height="60vw">
           <Box
-            height="50vw"
             align="center"
             justify="center"
             background="light-1"
           >
-            <Box height="small" width="small" fill>
+            <Box fill>
               <Image
                 fit="cover"
                 src={campaign.image}
