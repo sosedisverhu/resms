@@ -27,7 +27,7 @@ function Step({
   return (
     <Stack anchor="top-right">
       <Box background="light-2" height="100vh" pad="large" justify="between">
-        <Box>
+        <Box height={{ min: 'auto' }}>
           <Text color="dark-4" size="small">
             {stepLabel}
           </Text>
@@ -44,10 +44,10 @@ function Step({
             {description}
           </Text>
         </Box>
-        <Box overflow="hidden" pad={{ vertical: 'xlarge' }}>
-          <Box overflow="auto">{children}</Box>
+        <Box overflow="hidden">
+          <Box overflow="auto" pad={{ horizontal: 'xxsmall', vertical: 'xxsmall' }}>{children}</Box>
         </Box>
-        <Box direction="row" justify="between" align="center">
+        <Box direction="row" justify="between" align="center" pad={{ top: 'large' }}>
           {backUrlShowed ? (
             <Link href={backUrlHref} as={backUrlAs}>
               <Button
@@ -62,14 +62,16 @@ function Step({
             <span />
           )}
           {submitShowed ? (
-            <Link href={submitHref} as={submitAs}>
-              <Button
-                label={submitTitle}
-                color="brand"
-                primary={submitButtonPrimary}
-                disabled={submitDisabled}
-                href={!submitDisabled ? submitHref : undefined}
-              />
+            <Link {...submitDisabled ? {} : { href: submitHref, as: submitAs }}>
+              <Box background={submitDisabled ? 'light-4' : 'brand'} pad={{ vertical: 'small', horizontal: 'xlarge' }} round="large">
+                <Button
+                  label={<Text weight="bold" color="white">{submitTitle}</Text>}
+                  color={submitDisabled ? 'light-4' : 'brand'}
+                  plain
+                  primary={submitButtonPrimary}
+                  // href={!submitDisabled ? submitHref : undefined}
+                />
+              </Box>
             </Link>
           ) : (
             <span />

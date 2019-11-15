@@ -109,8 +109,10 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
             plain
           />
           <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
-            <Text color="dark-4" size="xsmall">
-              resms.io/am1a
+            <Text color="dark-4" size="xsmall" truncate>
+              {window.location.origin}
+              /
+              {campaignId}
             </Text>
           </Box>
         </Box>

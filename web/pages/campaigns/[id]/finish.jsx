@@ -54,8 +54,11 @@ function CampaignMessageStep() {
         >
           <Text size="small">{campaign.message}</Text>
           &nbsp;
-          {/* <Text color="brand">{`https://resms.io/${campaignId}`}</Text> */}
-          <Text size="small" color="brand">https://resms.io/baar1</Text>
+          <Text color="brand" truncate>
+            {window.location.origin}
+            /
+            {campaignId}
+          </Text>
         </Box>
       </Box>
     </Step>

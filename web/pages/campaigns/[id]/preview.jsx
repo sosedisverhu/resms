@@ -37,19 +37,34 @@ function CampaignMessageStep() {
       <Box>
         <Text>Preview campaign in browser</Text>
         <Anchor>
-          <Box align="start">
-            <Button
-              plain
-              justify="start"
-              color="brand"
-              href={`/campaigns/${campaignId}`}
-              reverse
-              icon={<NewWindow color="brand" size="small" />}
-              label={`https://resms.io/${campaignId}`}
-              size="xsmall"
-              target="_blank"
-            />
-          </Box>
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href={`${window.location.origin}/${campaignId}`}
+          >
+            <Box align="start">
+              <Button
+                as={() => (
+                  <Box direction="row">
+                    <Text color="brand" truncate>
+                      {window.location.origin}
+                      /
+                      {campaignId}
+                    </Text>
+                    <Box margin={{ left: 'small' }} width={{ min: 'auto' }}>
+                      <NewWindow color="brand" size="small" />
+                    </Box>
+                  </Box>
+                )}
+                plain
+                justify="start"
+                color="brand"
+                reverse
+                icon={<NewWindow color="brand" size="small" />}
+                size="xsmall"
+              />
+            </Box>
+          </a>
         </Anchor>
         <Box margin={{ top: 'xlarge' }} align="start">
           <TestCampaign />

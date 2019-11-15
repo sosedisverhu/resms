@@ -72,6 +72,7 @@ function Content() {
         {
           campaign.content.every((block) => !!block.value) && (
             <Button
+              margin={{ bottom: 'xsmall' }}
               icon={<Add />}
               label="Add block"
               onClick={onBlockAddHandler}

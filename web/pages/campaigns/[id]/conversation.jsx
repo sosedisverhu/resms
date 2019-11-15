@@ -34,7 +34,7 @@ function CampaignConversationStep() {
       description="The conversation you're about to build is happening after recipient clicks a link in the original SMS."
     >
       <Box gap="medium" width="70vw">
-        <Box round="large" background="white" pad="11px">
+        <Box round="large" background="white" pad="11px" height={{ min: 'auto' }}>
           <Text size="small" weight="bold">{campaign.message}</Text>
         </Box>
         <Box round="large" overflow="hidden">
@@ -51,11 +51,13 @@ function CampaignConversationStep() {
               />
             </Box>
           </Box>
-          <Box background="white">
+          <Box background="white" width="100%" height={{ min: 'auto' }}>
             <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
-            <Box pad={{ horizontal: 'small', bottom: 'medium' }} responsive={false}>
-              <Text color="dark-4" size="xsmall">
-                resms.io/am1a
+            <Box pad={{ horizontal: 'small', bottom: 'small' }} responsive={false} height={{ min: 'auto' }}>
+              <Text color="dark-4" size="xsmall" truncate>
+                {window.location.origin}
+                /
+                {campaignId}
               </Text>
             </Box>
           </Box>
