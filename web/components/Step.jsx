@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Link from 'next/link';
@@ -24,6 +24,8 @@ function Step({
   title,
   description,
 }) {
+  const SubmitButtonWrapper = submitDisabled ? Fragment : Link;
+
   return (
     <Stack anchor="top-right">
       <Box background="light-2" height="100vh" pad="large" justify="between">
@@ -62,17 +64,16 @@ function Step({
             <span />
           )}
           {submitShowed ? (
-            <Link {...submitDisabled ? {} : { href: submitHref, as: submitAs }}>
+            <SubmitButtonWrapper {...submitDisabled ? {} : { href: submitHref, as: submitAs }}>
               <Box background={submitDisabled ? 'light-4' : 'brand'} pad={{ vertical: 'small', horizontal: 'xlarge' }} round="large">
                 <Button
                   label={<Text weight="bold" color="white">{submitTitle}</Text>}
                   color={submitDisabled ? 'light-4' : 'brand'}
                   plain
                   primary={submitButtonPrimary}
-                  // href={!submitDisabled ? submitHref : undefined}
                 />
               </Box>
-            </Link>
+            </SubmitButtonWrapper>
           ) : (
             <span />
           )}

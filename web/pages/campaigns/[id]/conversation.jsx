@@ -44,12 +44,12 @@ function CampaignConversationStep() {
             justify="center"
             background="light-1"
           >
-            <Box fill height="small" width="small">
+            <Bo height="small" width="small" fill>
               <Image
                 fit="cover"
                 src={campaign.image}
               />
-            </Box>
+            </Bo>
           </Box>
           <Box background="white" width="100%" height={{ min: 'auto' }}>
             <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
