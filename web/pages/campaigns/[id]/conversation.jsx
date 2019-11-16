@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Box, Image, Text,
+  Box, Image, Text, Paragraph,
 } from 'grommet';
 import isNull from 'lodash/isNull';
 import Content from '../../../components/Content';
@@ -33,34 +33,35 @@ function CampaignConversationStep() {
       title="Build conversation"
       description="The conversation you're about to build is happening after recipient clicks a link in the original SMS."
     >
-      <Box gap="medium" width="60vw" height={{ min: 'auto' }}>
-        <Box round="large" background="white" pad="11px" height={{ min: 'auto' }}>
-          <Text size="small" weight="bold">{campaign.message}</Text>
-        </Box>
-        <Box round="large" overflow="hidden" height="60vw">
-          <Box
-            align="center"
-            justify="center"
-            background="light-1"
-          >
-            <Box fill>
+      <Box gap="medium" width="60vw">
+        <div>
+          <Box round="large" background="white" pad="11px">
+            <Text size="small" weight="bold">{campaign.message}</Text>
+          </Box>
+        </div>
+        <div>
+          <Box background="white" round={{ size: 'large', corner: 'bottom' }}>
+            <Box
+              background="light-1"
+              height="50vw"
+              round={{ size: 'large', corner: 'top' }}
+              overflow="hidden"
+            >
               <Image
                 fit="cover"
                 src={campaign.image}
               />
             </Box>
-          </Box>
-          <Box background="white" width="100%" height={{ min: 'auto' }}>
-            <Text size="xsmall" weight="bold" margin="11px">{campaign.title}</Text>
-            <Box pad={{ horizontal: 'small', bottom: 'small' }} responsive={false} height={{ min: 'auto' }}>
-              <Text color="dark-4" size="xsmall" truncate>
+            <Paragraph size="small" weight="bold" margin={{ horizontal: '11px', vertical: '1px' }}>{campaign.title}</Paragraph>
+            <Box flex="1">
+              <Text color="dark-4" size="xsmall" margin={{ horizontal: '11px', vertical: '1px' }} as="div" truncate>
                 {window.location.origin}
                 /
                 {campaignId}
               </Text>
             </Box>
           </Box>
-        </Box>
+        </div>
         <Box>
           <Content />
         </Box>

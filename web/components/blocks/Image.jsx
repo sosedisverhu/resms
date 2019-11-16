@@ -48,10 +48,12 @@ function ImageBlock({
     }
   }, [block]);
 
+  const inputId = `image-${+Date.now()}`;
+
   return (
     <Box round="large" overflow="hidden">
       <Button>
-        <label htmlFor="image">
+        <label htmlFor={inputId}>
           <Box
             align="center"
             justify="center"
@@ -59,7 +61,7 @@ function ImageBlock({
           >
             <input
               onChange={onImageChangeHandler}
-              id="image"
+              id={inputId}
               type="file"
               accept="image/*"
               style={{ display: 'none' }}

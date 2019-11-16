@@ -29,25 +29,24 @@ function Step({
   return (
     <Stack anchor="top-right">
       <Box background="light-2" height="100vh" pad="large" justify="between">
-        <Box height={{ min: 'auto' }}>
-          <Text color="dark-4" size="small">
-            {stepLabel}
-          </Text>
-          <Heading
-            size="small"
-            margin={{ top: 'small', bottom: 'small' }}
-          >
-            {title}
-          </Heading>
-          <Text
-            color="dark-4"
-            size="xsmall"
-          >
-            {description}
-          </Text>
-        </Box>
+        <Text color="dark-4" size="small">
+          {stepLabel}
+        </Text>
+        <Heading
+          size="small"
+          margin={{ top: 'small', bottom: 'small' }}
+        >
+          {title}
+        </Heading>
+        <Text
+          color="dark-4"
+          size="xsmall"
+          margin={{ bottom: 'small' }}
+        >
+          {description}
+        </Text>
         <Box overflow="hidden">
-          <Box overflow="auto" pad={{ horizontal: 'xxsmall', vertical: 'xxsmall' }}>{children}</Box>
+          <Box overflow="auto" pad="xxsmall">{children}</Box>
         </Box>
         <Box direction="row" justify="between" align="center" pad={{ top: 'large' }}>
           {backUrlShowed ? (

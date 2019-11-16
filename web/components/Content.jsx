@@ -52,7 +52,7 @@ const Blocks = SortableContainer((
     activeBlockIndex,
   },
 ) => (
-  <div>
+  <Box gap="medium">
     {blocks.map((block, i) => {
       const Component = blocksMap[block.type];
 
@@ -73,7 +73,7 @@ const Blocks = SortableContainer((
         />
       );
     })}
-  </div>
+  </Box>
 ));
 
 
@@ -121,20 +121,23 @@ function Content() {
 
   return (
     <Box gap="medium">
-      <Blocks
-        blocks={campaign.content}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onRemove={onRemove}
-        activeBlockIndex={activeBlockIndex}
-        axis="xy"
-        useDragHandle
-        onSortEnd={onReorder}
-      />
-      <Box align="start">
+      <div>
+        <Blocks
+          blocks={campaign.content}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onRemove={onRemove}
+          activeBlockIndex={activeBlockIndex}
+          axis="xy"
+          useDragHandle
+          onSortEnd={onReorder}
+        />
+      </div>
+      <div>
         {
           campaign.content.every((block) => !!block.value) && (
             <Button
+              flex="1"
               margin={{ bottom: 'xsmall' }}
               icon={<Add />}
               label="Add block"
@@ -143,7 +146,7 @@ function Content() {
             />
           )
         }
-      </Box>
+      </div>
       <BlocksPopup visible={popupVisible} onClose={onBlockModalCloseHandler} />
     </Box>
   );
