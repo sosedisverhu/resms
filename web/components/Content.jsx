@@ -2,25 +2,84 @@ import React, { useState, useCallback, useEffect } from 'react';
 
 import findIndex from 'lodash/findIndex';
 
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+
 import {
   Box, Button,
 } from 'grommet';
-import { Add } from 'grommet-icons';
+import { Add, Menu } from 'grommet-icons';
 import BlocksPopup from './BlocksPopup';
 import useCampaign from '../hooks/useCampaign';
+import updateCampaign from '../helpers/firebase/updateCampaign';
+
+import arrayMove from '../utils/arrayMove';
+
 import blocksMap from './blocks/blocksMap';
 
 const getActiveBlockIndex = (content) => findIndex(
   content, (block) => !block.value,
 );
 
+const ReorderIcon = SortableHandle(() => (
+  <Menu />
+));
+
+const ComponentSortable = SortableElement(({
+  Component, blockIndex, onFocus, onBlur, activeBlockIndex,
+}) => (
+  <div>
+    <ReorderIcon />
+    <Component
+      blockIndex={blockIndex}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      isActive={activeBlockIndex === blockIndex}
+    />
+  </div>
+));
+
+const Blocks = SortableContainer((
+  {
+    blocks,
+    onFocus,
+    onBlur,
+    activeBlockIndex,
+  },
+) => (
+  <div>
+    {blocks.map((block, i) => {
+      const Component = blocksMap[block.type];
+
+      if (!Component) {
+        return null;
+      }
+
+      return (
+        <ComponentSortable
+          Component={Component}
+          key={i}
+          index={i}
+          blockIndex={i}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          isActive={activeBlockIndex === i}
+        />
+      );
+    })}
+  </div>
+));
+
+
 function Content() {
   const [activeBlockIndex, setActiveBlockIndex] = useState(-1);
-  const { campaign } = useCampaign();
+  const { campaignId, campaign } = useCampaign();
   const [popupVisible, setPopupVisible] = useState();
   const onBlockAddHandler = useCallback(() => setPopupVisible(true), []);
   const onBlockModalCloseHandler = useCallback(() => setPopupVisible(false), []);
 
+  const onReorder = useCallback(({ oldIndex, newIndex }) => {
+    updateCampaign(campaignId, { content: arrayMove(campaign.content, oldIndex, newIndex) });
+  }, [campaign]);
   const onFocus = useCallback((blockIndex) => {
     const content = [...campaign.content];
     content.splice(blockIndex, 1);
@@ -51,23 +110,15 @@ function Content() {
 
   return (
     <Box gap="medium">
-      {campaign.content.map((block, i) => {
-        const Component = blocksMap[block.type];
-
-        if (!Component) {
-          return null;
-        }
-
-        return (
-          <Component
-            key={i}
-            blockIndex={i}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            isActive={activeBlockIndex === i}
-          />
-        );
-      })}
+      <Blocks
+        blocks={campaign.content}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        activeBlockIndex={activeBlockIndex}
+        axis="xy"
+        useDragHandle
+        onSortEnd={onReorder}
+      />
       <Box align="start">
         {
           campaign.content.every((block) => !!block.value) && (
