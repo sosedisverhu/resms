@@ -7,7 +7,7 @@ import { SortableContainer, SortableElement, SortableHandle } from 'react-sortab
 import {
   Box, Button,
 } from 'grommet';
-import { Add, Menu } from 'grommet-icons';
+import { Add, Menu, Close } from 'grommet-icons';
 import BlocksPopup from './BlocksPopup';
 import useCampaign from '../hooks/useCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
@@ -25,10 +25,11 @@ const ReorderIcon = SortableHandle(() => (
 ));
 
 const ComponentSortable = SortableElement(({
-  Component, blockIndex, onFocus, onBlur, activeBlockIndex,
+  Component, blockIndex, onFocus, onBlur, onRemove, activeBlockIndex,
 }) => (
   <div>
     <ReorderIcon />
+    <Close onClick={onRemove(blockIndex)} />
     <Component
       blockIndex={blockIndex}
       onFocus={onFocus}
@@ -43,6 +44,7 @@ const Blocks = SortableContainer((
     blocks,
     onFocus,
     onBlur,
+    onRemove,
     activeBlockIndex,
   },
 ) => (
@@ -62,6 +64,7 @@ const Blocks = SortableContainer((
           blockIndex={i}
           onFocus={onFocus}
           onBlur={onBlur}
+          onRemove={onRemove}
           isActive={activeBlockIndex === i}
         />
       );
@@ -80,11 +83,16 @@ function Content() {
   const onReorder = useCallback(({ oldIndex, newIndex }) => {
     updateCampaign(campaignId, { content: arrayMove(campaign.content, oldIndex, newIndex) });
   }, [campaign]);
+  const onRemove = useCallback((blockIndex) => () => {
+    const content = [...campaign.content];
+
+    content.splice(blockIndex, 1);
+    updateCampaign(campaignId, { content });
+  }, [campaign]);
   const onFocus = useCallback((blockIndex) => {
     const content = [...campaign.content];
     content.splice(blockIndex, 1);
     const activeBlockI = getActiveBlockIndex(content);
-
 
     setActiveBlockIndex(activeBlockI >= blockIndex ? activeBlockI + 1 : activeBlockI);
   }, [campaign]);
@@ -92,7 +100,6 @@ function Content() {
     const content = [...campaign.content];
 
     content[blockIndex].value = value;
-
     setActiveBlockIndex(
       getActiveBlockIndex(content),
     );
@@ -114,6 +121,7 @@ function Content() {
         blocks={campaign.content}
         onFocus={onFocus}
         onBlur={onBlur}
+        onRemove={onRemove}
         activeBlockIndex={activeBlockIndex}
         axis="xy"
         useDragHandle
