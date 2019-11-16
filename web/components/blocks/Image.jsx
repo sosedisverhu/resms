@@ -67,9 +67,9 @@ function ImageBlock({
               style={{ display: 'none' }}
             />
             { value ? (
-              <Box width="100%" height="60vw">
+              <Box width="100%">
                 <Image
-                  fit="cover"
+                  width="100%"
                   src={value}
                 />
               </Box>

@@ -75,7 +75,6 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
       <Button>
         <label htmlFor="image">
           <Box
-            height="50vw"
             align="center"
             justify="center"
             background={activity.image ? 'brand' : 'light-1'}
@@ -88,9 +87,9 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
               style={{ display: 'none' }}
             />
             { image ? (
-              <Box fill height="small" width="small">
+              <Box>
                 <Image
-                  fit="cover"
+                  width="100%"
                   src={image}
                 />
               </Box>
@@ -113,7 +112,7 @@ function CampaignOpenGraph({ activity, onFocus, onBlur }) {
             value={title}
             plain
           />
-          <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
+          <Box pad={{ horizontal: 'medium', bottom: 'small' }}>
             <Text color="dark-4" size="xsmall" truncate>
               {window.location.origin}
               /

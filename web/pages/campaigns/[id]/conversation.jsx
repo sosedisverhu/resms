@@ -43,23 +43,20 @@ function CampaignConversationStep() {
           <Box background="white" round={{ size: 'large', corner: 'bottom' }}>
             <Box
               background="light-1"
-              height="50vw"
               round={{ size: 'large', corner: 'top' }}
               overflow="hidden"
             >
               <Image
-                fit="cover"
+                width="100%"
                 src={campaign.image}
               />
             </Box>
             <Paragraph size="small" weight="bold" margin={{ horizontal: '11px', vertical: '1px' }}>{campaign.title}</Paragraph>
-            <Box flex="1">
-              <Text color="dark-4" size="xsmall" margin={{ horizontal: '11px', vertical: '1px' }} as="div" truncate>
-                {window.location.origin}
-                /
-                {campaignId}
-              </Text>
-            </Box>
+            <Text color="dark-4" size="xsmall" margin={{ horizontal: '11px', vertical: '1px' }} as="div" truncate>
+              {window.location.origin}
+              /
+              {campaignId}
+            </Text>
           </Box>
         </div>
         <Box>
