@@ -1,17 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {
-  TextArea,
-} from 'grommet';
+import { TextArea } from 'grommet';
 
 import noop from 'lodash/noop';
 
-const textarea = React.createRef();
+function TextAreaAutoresize({ value, ...rest }) {
+  const ref = React.createRef();
 
-function TextAreaAutoresize({ onChange, ...rest }) {
-  const [rows, setRows] = useState(1);
-  const onChangeHandler = useCallback((event) => {
-    const txt = textarea.current;
+  useEffect(() => {
+    const txt = ref.current;
 
     if (txt) {
       txt.rows = 1;
@@ -21,21 +18,10 @@ function TextAreaAutoresize({ onChange, ...rest }) {
           txt.rows += 1;
         }
       } while (txt.clientHeight < txt.scrollHeight);
-
-      setRows(txt.rows);
     }
+  }, [ref, value]);
 
-    onChange(event);
-  }, [onChange]);
-
-  return (
-    <TextArea
-      {...rest}
-      forwardRef={textarea}
-      rows={rows}
-      onChange={onChangeHandler}
-    />
-  );
+  return <TextArea {...rest} forwardRef={ref} {...{ value }} />;
 }
 
 TextAreaAutoresize.propTypes = {
