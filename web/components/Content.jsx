@@ -65,7 +65,7 @@ const Blocks = SortableContainer((
           onFocus={onFocus}
           onBlur={onBlur}
           onRemove={onRemove}
-          isActive={activeBlockIndex === i}
+          activeBlockIndex={activeBlockIndex}
         />
       );
     })}
@@ -107,7 +107,7 @@ function Content() {
 
   useEffect(() => {
     if (campaign) {
-      setActiveBlockIndex(getActiveBlockIndex(campaign.content, campaign));
+      setActiveBlockIndex(getActiveBlockIndex(campaign.content));
     }
   }, [campaign]);
 

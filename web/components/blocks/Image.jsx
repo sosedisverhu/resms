@@ -24,6 +24,11 @@ function ImageBlock({
   const onImageChangeHandler = useCallback(
     async (event) => {
       const file = event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
       const uploadTask = storage.ref().child(`images/${file.name}`).put(file);
 
       uploadTask.on('state_changed',
