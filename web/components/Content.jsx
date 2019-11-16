@@ -5,7 +5,7 @@ import findIndex from 'lodash/findIndex';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 import {
-  Box, Button,
+  Box, Button, Stack,
 } from 'grommet';
 import { Add, Menu, Close } from 'grommet-icons';
 import BlocksPopup from './BlocksPopup';
@@ -27,16 +27,20 @@ const ReorderIcon = SortableHandle(() => (
 const ComponentSortable = SortableElement(({
   Component, blockIndex, onFocus, onBlur, onRemove, activeBlockIndex,
 }) => (
-  <div>
-    <ReorderIcon />
-    <Close onClick={onRemove(blockIndex)} />
-    <Component
-      blockIndex={blockIndex}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      isActive={activeBlockIndex === blockIndex}
-    />
-  </div>
+  <Stack anchor="top-right">
+    <Box>
+      <Component
+        blockIndex={blockIndex}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        isActive={activeBlockIndex === blockIndex}
+      />
+    </Box>
+    <Box direction="row" pad="small" gap="small">
+      <ReorderIcon />
+      <Close onClick={onRemove(blockIndex)} />
+    </Box>
+  </Stack>
 ));
 
 const Blocks = SortableContainer((
