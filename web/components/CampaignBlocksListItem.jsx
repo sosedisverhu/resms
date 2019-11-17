@@ -17,7 +17,7 @@ function CampaignBlocksListItem({ Component, blockIndex }) {
       margin={{ bottom: 'small' }}
       style={{ position: 'relative', userSelect: 'none' }}
     >
-      <Box fill style={{ position: 'relative' }}>
+      <Box fill justify="start" style={{ position: 'relative' }}>
         <Component blockIndex={blockIndex} />
       </Box>
 

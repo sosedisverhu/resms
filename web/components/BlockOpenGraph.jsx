@@ -71,9 +71,9 @@ function BlockOpenGraph({ blockIndex }) {
           </Box>
         </label>
       </Button>
-      <Box>
+      <Box style={{ position: 'relative' }}>
         <TextAreaAutoresize
-          size="xsmall"
+          size="medium"
           placeholder="Type your call to action here..."
           value={title}
           plain

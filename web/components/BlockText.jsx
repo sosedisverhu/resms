@@ -13,15 +13,17 @@ function BlockText({ blockIndex }) {
   const onChange = useCallback((event) => setText(event.target.value), [setText]);
 
   return (
-    <Box round="large" background="white" elevation="xsmall">
-      <TextAreaAutoresize
-        size="small"
-        plain
-        resize={false}
-        placeholder="Type your message here..."
-        value={text}
-        {...{ onChange }}
-      />
+    <Box align="start" style={{ position: 'relative' }}>
+      <Box round="large" background="white" elevation="xsmall">
+        <TextAreaAutoresize
+          size="medium"
+          plain
+          resize={false}
+          placeholder="Type your message here..."
+          value={text}
+          {...{ onChange }}
+        />
+      </Box>
     </Box>
   );
 }

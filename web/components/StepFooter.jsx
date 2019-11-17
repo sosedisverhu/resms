@@ -24,7 +24,7 @@ function StepFooter({ step }) {
       width="100%"
       background="white"
       style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: 0,
         zIndex: 1,
       }}

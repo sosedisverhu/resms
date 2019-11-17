@@ -6,7 +6,7 @@ function CampaignBlocksListItemDragHandle(props) {
   return (
     <Box
       pad="small"
-      background="light-2"
+      background="transparent"
       style={{
         position: 'absolute',
         right: '100%',
