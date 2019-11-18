@@ -25,12 +25,12 @@ function CampaignMessageStep() {
     [campaign],
   );
 
-  if (isNull(campaign)) {
-    return <Text>Loading</Text>;
+  if (!campaign) {
+    return <Text>Loading...</Text>;
   }
 
-  if (!campaign) {
-    return <Text>Campaign not found</Text>;
+  if (isNull(campaign)) {
+    return <Text>Campaign was not found.</Text>;
   }
 
   return (

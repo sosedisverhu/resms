@@ -1,8 +1,11 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": [
     {
       "site": "resms-production",
-      "public": "public",
+      "public": ".next/serverless/pages",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "redirects": [
         {
@@ -40,6 +43,10 @@
         {
           "source": "/campaigns/*/preview",
           "destination": "/campaigns/[id]/preview.html"
+        },
+        {
+          "source": "/*",
+          "function": "render"
         }
       ]
     }

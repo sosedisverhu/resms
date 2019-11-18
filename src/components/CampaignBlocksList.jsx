@@ -1,7 +1,7 @@
 import React from 'react';
 import blocks from '../constants/blocks';
 
-function CampaignBlocksList({ items, ItemComponent, ...itemProps }) {
+function CampaignBlocksList({ items = [], ItemComponent, ...itemProps }) {
   return (
     <div>
       {items.map((block, i) => {
