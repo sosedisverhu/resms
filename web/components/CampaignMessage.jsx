@@ -1,13 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import noop from 'lodash/noop';
+import { Box, Grommet } from 'grommet';
 
-import {
-  Box, Grommet,
-} from 'grommet';
-import useCampaign from '../hooks/useCampaign';
-
+import useCurrentCampaign from '../hooks/useCurrentCampaign';
 import TextAreaAutoresize from './TextAreaAutoresize';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
@@ -33,22 +29,26 @@ const inputTheme = {
 };
 
 function CampaignMessage({ isActive, onFocus, onBlur }) {
-  const { campaign, campaignId } = useCampaign();
+  const [campaign] = useCurrentCampaign();
   const [value, setValue] = useState('');
 
   const onFocusHandler = useCallback(() => onFocus('message'), [campaign]);
-  const onChangeHandler = useCallback((event) => {
-    if ((event.target.value && !campaign.message) || (!event.target.value && campaign.message)) {
-      updateCampaign(campaignId, { message: event.target.value });
-    }
-    setValue(event.target.value);
-  }, [campaign, campaignId]);
+  const onChangeHandler = useCallback(
+    (event) => {
+      if ((event.target.value && !campaign.message) || (!event.target.value && campaign.message)) {
+        updateCampaign(campaign.id, { message: event.target.value });
+      }
+      setValue(event.target.value);
+    },
+    [campaign],
+  );
   const onBlurHandler = useCallback(
     (event) => {
-      updateCampaign(campaignId, { message: event.target.value });
+      updateCampaign(campaign.id, { message: event.target.value });
 
       onBlur('message', event.target.value);
-    }, [campaign],
+    },
+    [campaign],
   );
 
   useEffect(() => {

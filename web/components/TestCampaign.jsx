@@ -1,67 +1,61 @@
 import React, { useState, useCallback } from 'react';
-
+import filter from 'lodash/filter';
+import startsWith from 'lodash/startsWith';
 import { Send } from 'grommet-icons';
 
 import {
   Box, Text, Select, Form, Button, TextInput,
 } from 'grommet';
 
-const options = ['+371', '+372', '+373', '+374', '+375'];
+import countries from '../constants/countries';
 
 function TestCampaign() {
-  const [activeMobilePrefix, setActiveMobilePrefix] = useState(options[0]);
+  const [options, setOptions] = useState(countries);
+  const [activeMobilePrefix, setActiveMobilePrefix] = useState('+371');
 
-  const onSelectChange = useCallback(({ option }) => setActiveMobilePrefix(option), []);
+  const onSearch = useCallback((query) => {
+    setOptions(
+      query
+        ? filter(
+          countries,
+          (country) => startsWith(country.name, query)
+              || startsWith(country.dialCode, query)
+              || startsWith(country.dialCode, `+${query}`),
+        )
+        : countries,
+    );
+  }, []);
+
+  const onOpen = useCallback(() => {
+    setOptions(countries);
+  }, []);
+
+  const onSelectChange = useCallback(({ option }) => setActiveMobilePrefix(option.dialCode), []);
 
   return (
     <Box>
-      <Text color="dark-1" size="small">Send yourself a test message</Text>
-      <Text color="dark-4" size="xsmall" margin={{ top: 'xsmall', bottom: 'xsmall' }}>
-        Fill your phone number in and hit send.
-        We will deliver a test SMS to your phone for preview.
+      <Text color="dark-1" size="small">
+        Send yourself a test message
+      </Text>
+      <Text color="dark-4" size="xsmall" margin={{ bottom: 'small' }}>
+        Fill your phone number in and hit send. We will deliver a test SMS to your phone for
+        preview.
       </Text>
       <Form>
         <Box direction="row">
           <Box gap="small" direction="row" align="start">
-            <Box
-              background="white"
-              width={{ min: '105px' }}
-              round="medium"
-              border={{
-                color: 'status-unknown',
-                size: 'small',
-                side: 'all',
-              }}
-            >
-              <Select
-                width="120px"
-                round="large"
-                options={options}
-                value={activeMobilePrefix}
-                onChange={onSelectChange}
-                focusIndicator={false}
-                plain
-              />
-            </Box>
-            <Box
-              background="white"
-              round="medium"
-              pad="0"
-              fill
-              border={{
-                color: 'status-unknown',
-                size: 'small',
-                side: 'all',
-              }}
-            >
-              <TextInput
-                round="large"
-                focusIndicator={false}
-                plain
-              />
-            </Box>
+            <Select
+              round="large"
+              options={options}
+              labelKey={(country) => `${country.name} (${country.dialCode})`}
+              valueKey="dialCode"
+              value={activeMobilePrefix}
+              onChange={onSelectChange}
+              {...{ onSearch, onOpen }}
+            />
+            <TextInput round="large" focusIndicator={false} />
           </Box>
-          <Button focusIndicator={false} pad="none" icon={<Send color="brand" size="medium" />} />
+          <Button pad="none" icon={<Send color="brand" size="medium" />} />
         </Box>
       </Form>
     </Box>

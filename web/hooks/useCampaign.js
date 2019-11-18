@@ -1,31 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState, useEffect, useCallback } from 'react';
 import noop from 'lodash/noop';
 import { firestore } from '../helpers/firebase';
+import useRouteParams from './useRouteParams';
+import updateCampaign from '../helpers/firebase/updateCampaign';
 
 export default () => {
-  const {
-    query: { id: campaignId },
-  } = useRouter();
-  const [campaign, setCampaign] = useState(null);
+  const { id } = useRouteParams();
+  const [campaign, setCampaign] = useState();
 
   useEffect(() => {
-    if (campaignId) {
+    if (id) {
       return firestore
         .collection('campaigns')
-        .doc(campaignId)
+        .doc(id)
         .onSnapshot((doc) => {
           const data = doc.data();
 
           if (!data) {
-            return setCampaign(false);
+            return setCampaign(null);
           }
 
-          return setCampaign({ ...data });
+          return setCampaign({ id, ...data });
         });
     }
     return noop;
-  }, [campaignId]);
+  }, [id]);
 
-  return { campaign, campaignId };
+  const onChange = useCallback(
+    (newCampaign) => {
+      const { id: _id, ...attributes } = newCampaign;
+      setCampaign(attributes);
+      updateCampaign(id, attributes);
+    },
+    [id, campaign, setCampaign],
+  );
+
+  return [campaign, onChange];
 };

@@ -1,28 +1,27 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Box,
-  Text,
-  CheckBox,
-} from 'grommet';
+import { Box, Text, CheckBox } from 'grommet';
 
-import useCampaign from '../hooks/useCampaign';
+import useCurrentCampaign from '../hooks/useCurrentCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 function CustomizationCheckBox({ type, title, description }) {
-  const { campaign, campaignId } = useCampaign();
+  const [campaign] = useCurrentCampaign();
 
   const [checked, setChecked] = useState(false);
-  const onChange = useCallback((event) => {
-    setChecked(event.target.checked);
-    updateCampaign(campaignId, {
-      settings: {
-        ...campaign.settings,
-        [type]: event.target.checked,
-      },
-    });
-  }, [campaign]);
+  const onChange = useCallback(
+    (event) => {
+      setChecked(event.target.checked);
+      updateCampaign(campaign.id, {
+        settings: {
+          ...campaign.settings,
+          [type]: event.target.checked,
+        },
+      });
+    },
+    [campaign],
+  );
 
   useEffect(() => {
     if (campaign) {
@@ -34,8 +33,12 @@ function CustomizationCheckBox({ type, title, description }) {
     <Box direction="row" gap="medium">
       <CheckBox reverse checked={checked} onChange={onChange} background="white" toggle />
       <Box>
-        <Text color="dark-1" size="small">{title}</Text>
-        <Text color="dark-4" size="xsmall">{description}</Text>
+        <Text color="dark-1" size="small">
+          {title}
+        </Text>
+        <Text color="dark-4" size="xsmall">
+          {description}
+        </Text>
       </Box>
     </Box>
   );

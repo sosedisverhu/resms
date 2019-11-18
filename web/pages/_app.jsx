@@ -4,27 +4,37 @@ import Head from 'next/head';
 import { grommet, Grommet } from 'grommet';
 import { deepMerge } from 'grommet/utils';
 
-const theme = deepMerge(grommet, {});
+import CampaingContext from '../contexts/CampaingContext';
+import useRouteParams from '../hooks/useRouteParams';
+import useCampaign from '../hooks/useCampaign';
+
+const theme = deepMerge(grommet, { global: { colors: { background: { light: '#F2F2F2' } } } });
 
 function App({ Component, pageProps }) {
+  const { id } = useRouteParams();
+  const campaignContext = useCampaign(id);
+
   return (
-    <Grommet theme={theme}>
-      <Head>
-        <style>
-          {`
+    <CampaingContext.Provider value={campaignContext}>
+      <Grommet theme={theme}>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+          <style>
+            {`
             html, body { 
               margin: 0;
               padding: 0;
             }
 
-            html {
-              background-color: ${theme.global.colors.background};
+            html, body {
+              background: ${theme.global.colors.background.light};
             }
           `}
-        </style>
-      </Head>
-      <Component {...pageProps} />
-    </Grommet>
+          </style>
+        </Head>
+        <Component {...pageProps} />
+      </Grommet>
+    </CampaingContext.Provider>
   );
 }
 

@@ -23,10 +23,9 @@ import {
   Vimeo,
   Instagram,
 } from 'grommet-icons';
+
 import BlockPreviewCard from './BlockPreviewCard';
-
-import useCampaign from '../hooks/useCampaign';
-
+import useCurrentCampaign from '../hooks/useCurrentCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
 const blocks = [
@@ -48,16 +47,17 @@ const blocks = [
 ];
 
 function BlocksPopup({ onClose, visible }) {
-  const { campaign, campaignId } = useCampaign();
-  const onBlockAddHandler = useCallback((type) => {
-    updateCampaign(campaignId, {
-      content: [
-        ...campaign.content,
-        { type },
-      ],
-    });
-    onClose();
-  }, [campaignId, campaign, onClose]);
+  const [campaign] = useCurrentCampaign();
+
+  const onBlockAddHandler = useCallback(
+    (type) => {
+      updateCampaign(campaign.id, {
+        content: [...campaign.content, { type }],
+      });
+      onClose();
+    },
+    [campaign, onClose],
+  );
 
   if (!visible) {
     return null;
@@ -75,25 +75,13 @@ function BlocksPopup({ onClose, visible }) {
       round="large"
       full
     >
-      <Box
-        background="light-2"
-        width="100%"
-        pad="large"
-        overflow="auto"
-        fill
-      >
-        <Heading
-          size="small"
-          margin={{ top: 'none', bottom: 'medium' }}
-        >
+      <Box background="light-2" width="100%" pad="large" overflow="auto" fill>
+        <Heading size="small" margin={{ top: 'none', bottom: 'medium' }}>
           Select block type
         </Heading>
-        <Text
-          size="xsmall"
-          color="dark-4"
-        >
-          There are many different block types that serve different purpose.
-          Feel free to experiment with various blocks to gets best results.
+        <Text size="xsmall" color="dark-4">
+          There are many different block types that serve different purpose. Feel free to experiment
+          with various blocks to gets best results.
         </Text>
         <Box margin={{ top: 'large' }}>
           <Grid
@@ -103,7 +91,7 @@ function BlocksPopup({ onClose, visible }) {
             }}
             gap="small"
           >
-            { blocks.map((block) => (
+            {blocks.map((block) => (
               <BlockPreviewCard
                 key={block.type}
                 type={block.type}
@@ -111,7 +99,7 @@ function BlocksPopup({ onClose, visible }) {
                 icon={block.icon}
                 onBlockAdd={onBlockAddHandler}
               />
-            )) }
+            ))}
           </Grid>
         </Box>
       </Box>
