@@ -48,10 +48,16 @@ function BlockOpenGraph({ blockIndex }) {
   const id = isUndefined(blockIndex) ? 'global' : blockIndex;
 
   return (
-    <Box round="large" overflow="hidden" background="white" elevation="xsmall">
+    <Box
+      round="large"
+      overflow="hidden"
+      background="white"
+      elevation="xsmall"
+      width={{ max: '70vw' }}
+    >
       <Button>
         <label htmlFor={id}>
-          <Box background={image ? 'brand' : 'light-1'}>
+          <Box background={image ? 'brand' : 'light-1'} style={{ position: 'relative' }}>
             <input
               onChange={onImageChange}
               id={id}
@@ -60,7 +66,22 @@ function BlockOpenGraph({ blockIndex }) {
               style={{ display: 'none' }}
             />
             {image ? (
-              <Image src={image} width="100%" />
+              <>
+                <div style={{ paddingTop: '100%' }} />
+                <Image
+                  fit="cover"
+                  src={image}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
+              </>
             ) : (
               <Box width="100%" height="60vw" align="center" justify="center">
                 <Text color="dark-4" size="small">

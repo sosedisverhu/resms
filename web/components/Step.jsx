@@ -8,10 +8,10 @@ import StepFooter from './StepFooter';
 function Step({ children, ...props }) {
   return (
     <>
-      <Box justify="between" pad="large" gap="medium" style={{ minHeight: '100vh' }}>
+      <Box justify="between" pad="large" gap="medium" style={{ minHeight: '80vh' }}>
         <StepHeader {...props} />
-        <div style={{ paddingBottom: 80 }}>{children}</div>
-        <div />
+        <div>{children}</div>
+        <Box height="80px" />
       </Box>
       <StepFooter {...props} />
     </>
