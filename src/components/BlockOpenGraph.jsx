@@ -4,7 +4,7 @@ import noop from 'lodash/noop';
 import isUndefined from 'lodash/isUndefined';
 
 import {
-  Box, Text, TextInput, Button, Image,
+  Box, Text, Button, Image,
 } from 'grommet';
 
 import { storage } from '../helpers/firebase';

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Router from '../routes';
 import RouteContext from '../contexts/RouteContext';
 import CampaingContext from '../contexts/CampaingContext';
-import ReadOnlyCampaignBlocks from '../components/ReadOnlyCampaignBlocks';
+import DisplayCampaignBlocks from '../components/DisplayCampaignBlocks';
 import firebaseFromRequestWithFallback from '../helpers/firebase/firebaseFromRequestWithFallback';
 
 function CampaignPage({ route = {}, campaign = {} }) {
@@ -21,7 +21,7 @@ function CampaignPage({ route = {}, campaign = {} }) {
 
       <RouteContext.Provider value={route}>
         <CampaingContext.Provider value={campaignContext}>
-          <ReadOnlyCampaignBlocks />
+          <DisplayCampaignBlocks />
         </CampaingContext.Provider>
       </RouteContext.Provider>
     </div>

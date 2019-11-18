@@ -9,7 +9,7 @@ import CampaignBlocksList from './CampaignBlocksList';
 import useCurrentCampaign from '../hooks/useCurrentCampaign';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 import arrayMove from '../utils/arrayMove';
-import CampaignInitialBlocks from './CampaignInitialBlocks';
+import DisplayCampaignInitialBlocks from './DisplayCampaignInitialBlocks';
 
 const SortableCampaignBlocksListItem = SortableElement(CampaignBlocksListItem);
 const SortableCampaignBlocksList = SortableContainer(CampaignBlocksList);
@@ -29,7 +29,7 @@ function CampaignBlocks() {
 
   return (
     <div id="container">
-      <CampaignInitialBlocks />
+      <DisplayCampaignInitialBlocks />
 
       <SortableCampaignBlocksList
         items={campaign.content}
