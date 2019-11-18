@@ -32,12 +32,12 @@ const settings = [
 function CampaignMessageStep() {
   const [campaign] = useCurrentCampaign();
 
-  if (isNull(campaign)) {
-    return <Text>Loading</Text>;
+  if (!campaign) {
+    return <Text>Loading...</Text>;
   }
 
-  if (!campaign) {
-    return <Text>Campaign not found</Text>;
+  if (isNull(campaign)) {
+    return <Text>Campaign was not found.</Text>;
   }
 
   return (

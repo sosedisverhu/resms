@@ -4,15 +4,15 @@ import { firestore } from '../helpers/firebase';
 import useRouteParams from './useRouteParams';
 import updateCampaign from '../helpers/firebase/updateCampaign';
 
-export default () => {
-  const { id } = useRouteParams();
+export default (id = null) => {
+  const { routeId } = useRouteParams();
   const [campaign, setCampaign] = useState();
 
   useEffect(() => {
     if (id) {
       return firestore
         .collection('campaigns')
-        .doc(id)
+        .doc(id || routeId)
         .onSnapshot((doc) => {
           const data = doc.data();
 
@@ -24,7 +24,7 @@ export default () => {
         });
     }
     return noop;
-  }, [id]);
+  }, [id, routeId]);
 
   const onChange = useCallback(
     (newCampaign) => {

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, TextArea } from 'grommet';
 
@@ -10,21 +10,7 @@ function TextAreaAutoresize({
   const ref = React.createRef();
   const [size, setSize] = useState({ width: 0, height: 0 });
 
-  // useEffect(() => {
-  //   const txt = ref.current;
-
-  //   if (txt) {
-  //     txt.rows = 1;
-
-  //     do {
-  //       if (txt.clientHeight !== txt.scrollHeight) {
-  //         txt.rows += 1;
-  //       }
-  //     } while (txt.clientHeight < txt.scrollHeight);
-  //   }
-  // }, [ref, value]);
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (ref.current) {
       setSize({
         width: ref.current.offsetWidth,
