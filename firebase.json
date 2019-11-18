@@ -1,0 +1,54 @@
+{
+  "functions": {
+    "source": "functions"
+  },
+  "hosting": [
+    {
+      "site": "resms-production",
+      "public": ".next/serverless/pages",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "redirects": [
+        {
+          "source": "/",
+          "destination": "/campaigns/new",
+          "type": 302
+        },
+        {
+          "source": "/campaigns",
+          "destination": "/campaigns/new",
+          "type": 302
+        }
+      ],
+      "rewrites": [
+        {
+          "source": "/campaigns/new",
+          "destination": "/campaigns/new.html"
+        },
+        {
+          "source": "/campaigns/*",
+          "destination": "/campaigns/[id].html"
+        },
+        {
+          "source": "/campaigns/*/conversation",
+          "destination": "/campaigns/[id]/conversation.html"
+        },
+        {
+          "source": "/campaigns/*/customization",
+          "destination": "/campaigns/[id]/customization.html"
+        },
+        {
+          "source": "/campaigns/*/message",
+          "destination": "/campaigns/[id]/message.html"
+        },
+        {
+          "source": "/campaigns/*/preview",
+          "destination": "/campaigns/[id]/preview.html"
+        },
+        {
+          "source": "/*",
+          "function": "render"
+        }
+      ]
+    }
+  ]
+}
