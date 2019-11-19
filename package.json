@@ -38,7 +38,8 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-sortable-hoc": "^1.10.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "ua-parser-js": "^0.7.20"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
