@@ -8,6 +8,7 @@ const express = require('express');
 
 app.prepare().then(() => {
   express()
+    .use(express.static('public'))
     .use(handler)
     .listen(3000);
 });

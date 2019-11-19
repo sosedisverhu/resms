@@ -23,7 +23,6 @@ function TextAreaAutoresize({
     <>
       <Box
         forwardRef={ref}
-        pad="medium"
         style={{
           visibility: 'hidden',
           position: 'absolute',
@@ -33,6 +32,10 @@ function TextAreaAutoresize({
       >
         <Text
           weight="bold"
+          wordBreak="break-word"
+          style={{
+            padding: '24px',
+          }}
           dangerouslySetInnerHTML={{
             __html: `${
               value
@@ -45,7 +48,16 @@ function TextAreaAutoresize({
           }}
         />
       </Box>
-      <TextArea {...rest} {...{ value, onChange }} style={{ ...size, ...style }} />
+      <TextArea
+        {...rest}
+        {...{ value, onChange }}
+        style={{
+          ...size,
+          ...style,
+          padding: '24px',
+          fontWeight: 'bold',
+        }}
+      />
     </>
   );
 }
