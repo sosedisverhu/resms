@@ -49,14 +49,11 @@ CampaignPage.getInitialProps = async ({ req }) => {
     .doc(id)
     .get();
 
-  const { id: activityId } = firestore.collection('campaigns').doc(id).collection('activities').doc();
-
   await firestore
     .collection('campaigns')
     .doc(id)
     .collection('activities')
-    .doc(activityId)
-    .set({
+    .add({
       trackedAt: +new Date(),
       userAgent: req.headers['user-agent'],
       ip: req.header('x-forwarded-for') || req.connection.remoteAddress,

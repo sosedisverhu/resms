@@ -12,7 +12,7 @@
 
     handleCheckboxChange = (event) => {
       if (event.target.checked) {
-        window.open('https://resms.io/campaigns/new');
+        window.open('https://resms.io/campaigns/new', 'resms', 'height=600,width=800');
       }
     }
   }
