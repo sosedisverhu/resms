@@ -4,14 +4,14 @@
   "description": "ReSMS is a next generation of messages communication system",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./src/server.js",
+    "dev": "node ./src/start.js",
     "deploy": "npm run build && firebase deploy",
     "deploy:hosting": "npm run build && firebase deploy --only hosting",
     "deploy:functions": "npm run build && firebase deploy --only functions",
     "build": "env NODE_ENV=production next build && copyfiles ./.next/serverless/pages/**/*.js ./functions",
     "start": "next start",
-    "lint": "eslint web --ext .js,.jsx",
-    "lint-fix": "eslint web --ext .js,.jsx --fix",
+    "lint": "eslint src --ext .js,.jsx",
+    "lint-fix": "eslint src --ext .js,.jsx --fix",
     "prettier": "prettier --write src/**/*.js"
   },
   "repository": {
@@ -42,6 +42,9 @@
     "ua-parser-js": "^0.7.20"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
     "babel-eslint": "^10.0.3",
     "copyfiles": "^2.1.1",
     "eslint": "5.14.0",
