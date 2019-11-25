@@ -1,13 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import isUndefined from 'lodash/isUndefined';
-
-import {
-  Box, Text, Button, Image,
-} from 'grommet';
+import styled from 'styled-components';
 
 import useCurrentCampaignAttribute from '../hooks/useCurrentCampaignAttribute';
 import CampaignLink from './CampaignLink';
+
+const RootBox = styled.span`
+  border-radius: 17.5px;
+  position: relative;
+  overflow: hidden;
+  max-width: 70vw;
+  background: white;
+`;
+
+const Box = styled(RootBox)`  
+  background-color: #E5E6EA
+  position: relative;
+  font-size: 15px;
+  line-height: 18px;
+  width: fit-content;
+  display: flex;
+  align-items: flex-start;
+  letter-spacing: -0.016em;
+  color: #000000;
+`;
+
+const Image = styled.img`
+  max-height: 175px;
+  width: 150px;
+`;
+
+const ImageBox = styled(Box)`
+  margin-bottom: 4px
+`;
+
+const LinkBox = styled(Box)`
+  justify-content: start;
+  flex-direction: column
+  padding: 10px 14px;
+`;
 
 function DisplayBlockOpenGraph({ blockIndex }) {
   const [image] = useCurrentCampaignAttribute(
@@ -19,42 +51,22 @@ function DisplayBlockOpenGraph({ blockIndex }) {
   );
 
   return (
-    <Box
-      round="large"
-      overflow="hidden"
-      background="white"
-      elevation="xsmall"
-      width={{ max: '70vw' }}
-    >
-      <Button>
-        <Box background={image ? 'brand' : 'light-1'} style={{ position: 'relative' }}>
+    <RootBox>
+      <div>
+        <ImageBox>
           <>
             <div style={{ paddingTop: '100%' }} />
             <Image
-              fit="cover"
               src={image}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                width: '100%',
-                height: '100%',
-              }}
             />
           </>
-        </Box>
-      </Button>
-      <Box style={{ position: 'relative' }}>
-        <Box pad="medium">
-          <Text weight="bold">{title}</Text>
-        </Box>
-        <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
-          <CampaignLink color="dark-4" size="xsmall" truncate />
-        </Box>
-      </Box>
-    </Box>
+        </ImageBox>
+      </div>
+      <LinkBox>
+        <span>{title}</span>
+        <CampaignLink color="dark-4" size="xsmall" truncate />
+      </LinkBox>
+    </RootBox>
   );
 }
 

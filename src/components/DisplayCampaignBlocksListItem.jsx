@@ -1,18 +1,15 @@
 import React from 'react';
-import { Box } from 'grommet';
+import styled from 'styled-components';
 
-function DisplayCampaignBlocksListItem({ Component, blockIndex }) {
+const Box1 = styled.div`
+  margin-bottom: 6px;
+`;
+
+function DisplayCampaignBlocksListItem({ Component, blockIndex, isLast }) {
   return (
-    <Box
-      align="center"
-      direction="row"
-      margin={{ bottom: 'small' }}
-      style={{ position: 'relative', userSelect: 'none' }}
-    >
-      <Box fill justify="start" style={{ position: 'relative' }}>
-        <Component blockIndex={blockIndex} />
-      </Box>
-    </Box>
+    <Box1>
+      <Component blockIndex={blockIndex} isLast={isLast} />
+    </Box1>
   );
 }
 

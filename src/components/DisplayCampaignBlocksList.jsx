@@ -11,7 +11,15 @@ function DisplayCampaignBlocksList({ items = [], ItemComponent, ...itemProps }) 
           return null;
         }
 
-        return <ItemComponent key={i} index={i} blockIndex={i} {...{ Component }} {...itemProps} />;
+        return (
+          <ItemComponent
+            key={i}
+            index={i}
+            blockIndex={i}
+            isLast={items.length - 1 === i}
+            {...{ Component }} {...itemProps}
+          />
+        );
       })}
     </div>
   );
