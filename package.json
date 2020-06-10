@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maximgladkov/resms.git"
+    "url": "git+https://github.com/sosedisverhu/resms.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/maximgladkov/resms/issues"
+    "url": "https://github.com/sosedisverhu/resms/issues"
   },
-  "homepage": "https://github.com/maximgladkov/resms#readme",
+  "homepage": "https://github.com/sosedisverhu/resms#readme",
   "dependencies": {
     "express": "^4.17.1",
     "firebase": "^7.4.0",
